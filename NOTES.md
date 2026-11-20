@@ -362,8 +362,15 @@ Evented variables per service (from the SCPDs):
 
 ## 6. Layer 4: the services and their actions
 
-Action lists are from the Sound Bar's SCPDs **[seen]**. "Used" means NuvoKit
-sends it.
+Action lists are from the Sound Bar's SCPDs **[seen]**. Each table has the
+same four columns:
+
+- **Inputs**: every argument the action takes, in the order the SCPD lists
+  them. `none` means it takes no arguments.
+- **Notes**: what it is for. Anything after `->` is a result the action
+  returns.
+- **Used**: whether NuvoKit sends it. Inputs of actions NuvoKit does not send
+  are copied from the SCPD and untested.
 
 Each service below has a "Values" table explaining the arguments and results
 whose contents are not obvious from the name. Types and allowed values are
@@ -401,15 +408,21 @@ with an action and the same value pushed in an event are named differently:
 
 ### Zone (`urn:schemas-nuvotechnologies-com:service:Zone:1`)
 
-| Action | Arguments -> result | Used |
-|---|---|---|
-| `Get` | -> FirmwareVersion, SystemID, MemberID, Title, Icon, Active, Connecting, MasterGroup, MemberGroup, Model, AudioInput, PowerState | yes |
-| `GroupCreate` | `memberIDs` (JSON array of zone IDs) -> `groupID` | yes |
-| `GroupDisband` | `groupID` | yes |
-| `GroupMemberSetGroup` | `memberIDs` (JSON array), `groupID` (empty = leave) | yes |
-| `GetActive`, `GetConnecting`, `GetUpdateState`, `GetFirmwareVersion`, `GetMemberID`, `GetSystemID` | single-value reads | no |
-| `UserTap`, `UserDoubleTap` | no arguments -> `groupID`. Purpose **[unknown]** | no |
-| `SystemCreate`, `SystemJoin`, `SystemConfigureGWs`, `RestoreFactoryDefaults` | re-home or wipe the player | **blocked** |
+| Action | Inputs | Notes | Used |
+|---|---|---|---|
+| `Get` | none | -> FirmwareVersion, SystemID, MemberID, Title, Icon, Active, Connecting, MasterGroup, MemberGroup, Model, AudioInput, PowerState | yes |
+| `GroupCreate` | `memberIDs` | -> `groupID`. `memberIDs` is a JSON array of zone IDs | yes |
+| `GroupDisband` | `groupID` | | yes |
+| `GroupMemberSetGroup` | `memberIDs`, `groupID` | `memberIDs` is a JSON array; an empty `groupID` means leave | yes |
+| `GetActive`, `GetConnecting`, `GetUpdateState`, `GetFirmwareVersion`, `GetMemberID`, `GetSystemID` | none | single-value reads | no |
+| `UserTap`, `UserDoubleTap` | none | -> `groupID`. Purpose **[unknown]** | no |
+| `SystemCreate` | `primaryGwMac` | -> `newSystemID` | **blocked** |
+| `SystemJoin` | `systemID` | -> `newSystemID` | **blocked** |
+| `SystemConfigureGWs` | `gateways` | `gateways` is JSON | **blocked** |
+| `RestoreFactoryDefaults` | `dummy` | `dummy` is JSON | **blocked** |
+
+The four blocked actions re-home or wipe the player. None has ever been sent,
+so their inputs are known only by name.
 
 Values:
 
@@ -439,15 +452,22 @@ Values:
 
 ### RenderingControl
 
-All take `InstanceID=0` and, for volume and mute, `Channel=Master`.
+Every action takes `InstanceID`, always `0`. All but the two preset actions
+also take `Channel`, always `Master`.
 
-| Action | Notes | Used |
-|---|---|---|
-| `GetVolume` / `SetVolume` | 0-100, `DesiredVolume`; result `CurrentVolume` | yes |
-| `GetMute` / `SetMute` | `DesiredMute` 1/0; result `CurrentMute` | yes |
-| `X_NUVO_AdjustVolume` | signed delta **[public]** | no |
-| `GetVolumeDB` / `SetVolumeDB`, `GetLoudness` / `SetLoudness`, `ListPresets` | | no |
-| `SelectPreset` | its only preset is FactoryDefaults | **blocked** |
+| Action | Inputs | Notes | Used |
+|---|---|---|---|
+| `GetVolume` | `InstanceID`, `Channel` | -> `CurrentVolume`, 0-100 | yes |
+| `SetVolume` | `InstanceID`, `Channel`, `DesiredVolume` | 0-100 | yes |
+| `GetMute` | `InstanceID`, `Channel` | -> `CurrentMute` | yes |
+| `SetMute` | `InstanceID`, `Channel`, `DesiredMute` | `1` mutes, `0` unmutes | yes |
+| `X_NUVO_AdjustVolume` | `InstanceID`, `Channel`, `VolumeAdjustment` | signed delta **[public]** | no |
+| `GetVolumeDB` | `InstanceID`, `Channel` | -> `CurrentVolume`. Same result name as `GetVolume`, but holds the dB value | no |
+| `SetVolumeDB` | `InstanceID`, `Channel`, `DesiredVolume` | Same input name as `SetVolume`, but takes the dB value | no |
+| `GetLoudness` | `InstanceID`, `Channel` | -> `CurrentLoudness` | no |
+| `SetLoudness` | `InstanceID`, `Channel`, `DesiredLoudness` | | no |
+| `ListPresets` | `InstanceID` | -> `CurrentPresetNameList` | no |
+| `SelectPreset` | `InstanceID`, `PresetName` | its only preset is FactoryDefaults | **blocked** |
 
 Volume is per zone. Zones in a group keep separate volumes.
 
@@ -468,20 +488,24 @@ Values:
 
 ### AVTransport
 
-All take `InstanceID=0`.
+Every action takes `InstanceID`, always `0`, as its first input.
 
-| Action | Notes | Used |
-|---|---|---|
-| `GetTransportInfo` | -> `CurrentTransportState` | yes |
-| `GetCurrentTransportActions` | -> `Actions`, comma-separated | yes |
-| `GetPositionInfo` | -> `TrackMetaData` (DIDL) among others | yes |
-| `GetMediaInfo` | -> `CurrentURIMetaData` (DIDL); fallback for now-playing | yes |
-| `Play` (`Speed=1`), `Pause`, `Stop`, `Next`, `Previous` | | yes |
-| `X_NUVO_Like`, `X_NUVO_Dislike` | only when listed in the current actions | yes |
-| `X_NUVO_PlayContainerURI` | the one request that starts any source (section 9) | yes |
-| `X_NUVO_PlayURI`, `X_NUVO_TogglePause`, `X_NUVO_PauseOrStop`, `X_NUVO_BeginPrevious` | | no |
-| `Seek`, `SetPlayMode`, `GetDeviceCapabilities`, `GetTransportSettings` | | no |
-| `SetAVTransportURI` | hazard, see section 13 | no |
+| Action | Inputs | Notes | Used |
+|---|---|---|---|
+| `GetTransportInfo` | `InstanceID` | -> `CurrentTransportState` | yes |
+| `GetCurrentTransportActions` | `InstanceID` | -> `Actions`, comma-separated | yes |
+| `GetPositionInfo` | `InstanceID` | -> `TrackMetaData` (DIDL) among others | yes |
+| `GetMediaInfo` | `InstanceID` | -> `CurrentURIMetaData` (DIDL); fallback for now-playing | yes |
+| `Play` | `InstanceID`, `Speed` | `Speed` is always `1` | yes |
+| `Pause`, `Stop`, `Next`, `Previous` | `InstanceID` | | yes |
+| `X_NUVO_Like`, `X_NUVO_Dislike` | `InstanceID` | only when listed in the current actions | yes |
+| `X_NUVO_PlayContainerURI` | `InstanceID`, `CurrentURI`, `CurrentURIMetaData`, `TrackURI`, `TrackURIMetaData`, `StartingIndex`, `UpdateID` | the one request that starts any source. What goes in each input is in section 9 | yes |
+| `X_NUVO_PlayURI` | `InstanceID`, `CurrentURI`, `CurrentURIMetaData` | | no |
+| `X_NUVO_TogglePause`, `X_NUVO_PauseOrStop`, `X_NUVO_BeginPrevious` | `InstanceID` | | no |
+| `Seek` | `InstanceID`, `Unit`, `Target` | | no |
+| `SetPlayMode` | `InstanceID`, `NewPlayMode` | | no |
+| `GetDeviceCapabilities`, `GetTransportSettings` | `InstanceID` | | no |
+| `SetAVTransportURI` | `InstanceID`, `CurrentURI`, `CurrentURIMetaData` | hazard, see section 13 | no |
 
 Values:
 
@@ -539,16 +563,24 @@ sense, and it varies by source **[seen]**:
 
 ### ContentDirectory
 
-| Action | Notes | Used |
-|---|---|---|
-| `Browse` | standard listing; works for some IDs | yes (line-in, fallback) |
-| `X_NUVO_Browse` | what the official app uses; adds `ContainerProperties` | yes |
-| `X_NUVO_Browse2` | returns a `ResultEncrypted` flag **[unknown]** | no |
-| `X_NUVO_Action(ObjectID)`, `X_NUVO_Action2(ObjectID, GroupID, MetaData, ParentMetaData, Index, Context...)` -> Result, Events | looks like "invoke this menu row" | no |
-| `X_NUVO_AddChild`, `X_NUVO_MoveChild`, `X_NUVO_RemoveChild`, `X_NUVO_ClearChildren` | list editing, presumably queue/favorites | no |
-| `X_NUVO_GetQueryID(ObjectID, Query)` | search | no |
-| `X_NUVO_CreateSubscribeQueue`, `X_NUVO_Subscribe(QueueID, ObjectID, Type)`, `X_NUVO_Unsubscribe`, `X_NUVO_ReadSubscribeQueue(QueueID)` | a second, polled event channel; Type is `rows` or `item` | no |
-| `GetSearchCapabilities`, `GetSortCapabilities`, `GetSystemUpdateID`, `UpdateObject` | | no |
+| Action | Inputs | Notes | Used |
+|---|---|---|---|
+| `Browse` | `ObjectID`, `BrowseFlag`, `Filter`, `StartingIndex`, `RequestedCount`, `SortCriteria` | standard listing; works for some IDs | yes (line-in, fallback) |
+| `X_NUVO_Browse` | `ObjectID`, `BrowseFlag`, `Filter`, `StartingIndex`, `RequestedCount`, `SubscribeQueueID`, `Arguments` | what the official app uses; adds `ContainerProperties` | yes |
+| `X_NUVO_Browse2` | `ObjectID`, `BrowseFlag`, `GroupID`, `MetaData`, `ParentMetaData`, `Index`, `Filter`, `StartingIndex`, `RequestedCount`, `SubscribeQueueID`, `Arguments` | returns a `ResultEncrypted` flag **[unknown]** | no |
+| `X_NUVO_Action` | `ObjectID` | -> `Result`, `Events`. Looks like "invoke this menu row" | no |
+| `X_NUVO_Action2` | `ObjectID`, `GroupID`, `MetaData`, `ParentMetaData`, `Index`, `ContextMetaData`, `ContextParentMetaData`, `ContextIndex` | -> `Result`, `Events`. Looks like "invoke this menu row" | no |
+| `X_NUVO_AddChild` | `ContainerID`, `MetaData`, `TargetIndex`, `TargetMetaData`, `UpdateID` | -> `Events`. List editing, presumably queue/favorites | no |
+| `X_NUVO_MoveChild` | `ContainerID`, `Index`, `MetaData`, `TargetIndex`, `TargetMetaData`, `UpdateID` | -> `Events`. List editing, presumably queue/favorites | no |
+| `X_NUVO_RemoveChild` | `ContainerID`, `Index`, `MetaData`, `UpdateID` | -> `Events`. List editing, presumably queue/favorites | no |
+| `X_NUVO_ClearChildren` | `ContainerID` | -> `Events`. List editing, presumably queue/favorites | no |
+| `X_NUVO_GetQueryID` | `ObjectID`, `Query` | -> `ResultID`. Search | no |
+| `X_NUVO_CreateSubscribeQueue` | none | -> `QueueID`. Start of a second, polled event channel | no |
+| `X_NUVO_Subscribe` | `QueueID`, `ObjectID`, `Type` | `Type` is `rows` or `item` | no |
+| `X_NUVO_Unsubscribe` | `QueueID`, `ObjectID`, `Type` | | no |
+| `X_NUVO_ReadSubscribeQueue` | `QueueID` | -> `Events` | no |
+| `GetSearchCapabilities`, `GetSortCapabilities`, `GetSystemUpdateID` | none | | no |
+| `UpdateObject` | `ObjectID`, `CurrentTagValue`, `NewTagValue` | | no |
 
 Values (how browsing behaves is covered in section 9):
 
