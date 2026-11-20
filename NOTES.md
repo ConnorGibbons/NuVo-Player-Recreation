@@ -151,6 +151,18 @@ before saving. Do not commit an unredacted description.
   Replies are de-duplicated on `USN + Location`.
 - Unicast probing exists because SSDP is lossy, multicast does not cross
   VLANs, and iOS needs a special entitlement for multicast.
+- **Nothing populates the unicast list automatically.** It is only ever what
+  a caller hands in, and there are two sources:
+  - `NuvoSystem.discover()` passes `NuvoSystem.knownHosts` (via
+    `NuvoDiscovery.zoneLocations(knownHosts:)`). That is a public property
+    that defaults to empty. The app never sets it and has no UI for it, so
+    **the app discovers by multicast only**.
+  - `nuvoctl discover [host ...]` passes the IPs given on the command line
+    straight to `SSDP.search`. Every other `nuvoctl` command passes none.
+- Addresses of zones already found are not fed back in, and nothing is
+  persisted between launches. A zone that never answers multicast is
+  therefore invisible to the app today. Once found, a zone stays in
+  `NuvoSystem.zones` even if later searches miss it.
 - `NuvoDiscovery.zoneLocations` keeps only replies whose `ST` is the zone
   device type and returns their `Location` URLs.
 - `DeviceDescription.fetch` downloads and parses the document, collecting
