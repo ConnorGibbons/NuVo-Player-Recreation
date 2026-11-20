@@ -1,3 +1,6 @@
+Note: This is my first attempt at a 'vibe coding' project. Most of this code was guided by me, but written by Claude. Therefore I can't verify it all works as intended or does what it states. I have tested this on my own NuVo system and it seems to work well. 
+
+
 # Nuvo Player (recreation)
 
 A replacement controller for Nuvo Player Portfolio systems (P100, P200, P500,
