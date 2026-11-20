@@ -365,6 +365,29 @@ Evented variables per service (from the SCPDs):
 Action lists are from the Sound Bar's SCPDs **[seen]**. "Used" means NuvoKit
 sends it.
 
+Each service below has a "Values" table explaining the arguments and results
+whose contents are not obvious from the name. Types and allowed values are
+copied from the SCPDs; meanings are marked where they are standard UPnP,
+observed here, or unknown. Everything is a string on the wire: `boolean` is
+`0`/`1` in SOAP replies, and a number is its decimal text. A field the player
+does not support is filled with the literal text `NOT_IMPLEMENTED`.
+
+**SOAP and events use different names for the same thing.** A value read
+with an action and the same value pushed in an event are named differently:
+
+| Read with | SOAP result name | Event variable name |
+|---|---|---|
+| `GetTransportInfo` | `CurrentTransportState` | `TransportState` |
+| `GetTransportInfo` | `CurrentTransportStatus` | `TransportStatus` |
+| `GetCurrentTransportActions` | `Actions` | `CurrentTransportActions` |
+| `GetPositionInfo` | `TrackMetaData` | `CurrentTrackMetaData` |
+| `GetPositionInfo` | `TrackURI` | `CurrentTrackURI` |
+| `GetMediaInfo` | `CurrentURI` | `AVTransportURI` |
+| `GetMediaInfo` | `CurrentURIMetaData` | `AVTransportURIMetaData` |
+| `GetVolume` | `CurrentVolume` | `Volume` |
+| `GetMute` | `CurrentMute` | `Mute` |
+| `Zone.Get` | (same names) | (same names) |
+
 ### Zone (`urn:schemas-nuvotechnologies-com:service:Zone:1`)
 
 | Action | Arguments -> result | Used |
@@ -374,8 +397,28 @@ sends it.
 | `GroupDisband` | `groupID` | yes |
 | `GroupMemberSetGroup` | `memberIDs` (JSON array), `groupID` (empty = leave) | yes |
 | `GetActive`, `GetConnecting`, `GetUpdateState`, `GetFirmwareVersion`, `GetMemberID`, `GetSystemID` | single-value reads | no |
-| `UserTap`, `UserDoubleTap` | **[unknown]** | no |
+| `UserTap`, `UserDoubleTap` | no arguments -> `groupID`. Purpose **[unknown]** | no |
 | `SystemCreate`, `SystemJoin`, `SystemConfigureGWs`, `RestoreFactoryDefaults` | re-home or wipe the player | **blocked** |
+
+Values:
+
+| Name | Type | What it holds |
+|---|---|---|
+| `MemberID` | string | The zone's ID, `memberId-<mac>`. The identifier grouping actions take (section 2). |
+| `SystemID` | string | ID of the Nuvo installation the zone belongs to. Every zone in one system reports the same value (`nuvoCSRJnoZYu81NO7dz` here). |
+| `Title` | string | The zone name the user gave it ("Family Room"). |
+| `Model` | string | Lowercase model code: `p500`, `p4300`. |
+| `FirmwareVersion` | string | e.g. `2025.0`. |
+| `Icon` | string | A `skin:<name>` reference to artwork built into the official app, not a URL (`skin:iconZoneBar`). The Sound Bar's changes with its input: `skin:iconSoundbarToslink`, `skin:iconSoundbarPlayer`. |
+| `Active` | boolean | `1` on every zone in every capture, on or off. Not the on/off state. Meaning **[unknown]**. |
+| `Connecting` | boolean | `0` in every capture. Meaning **[unknown]**. |
+| `MasterGroup` | string (JSON) | `{"id":"gid...","sortKey":"..."}`: the group this zone hosts. `id` is empty when it hosts none. Format in section 7, meaning in section 8. |
+| `MemberGroup` | string (JSON) | Same shape: the group this zone is listening to. **A non-empty `id` is what "on" means.** |
+| `AudioInput` | string: `player`, `toslink`, `rca` | What the zone's physical input currently detects, not a setting. `player` = nothing external (the built-in streamer), `toslink` = optical, `rca` = analog. `rca` is in the SCPD but has not been observed. |
+| `PowerState` | string: `standby`, `active`, `learning` | Hardware power state, **not** on/off (section 8). P4300 zones sit at `active` even when idle; the P500 is `standby` when idle and `active` in a group. `learning` is in the SCPD; never observed, meaning **[unknown]**. |
+| `UpdateState` | string (JSON) | Firmware update status: `{"title":"","version":"","id":"none"}` when there is nothing pending. Other values not observed. |
+| `memberIDs` (argument) | string (JSON) | A JSON array of zone IDs: `["memberId-0025ed1e2a55"]`. Always an array, even for one zone. |
+| `groupID` | string | Opaque ID the player assigns, `gid` plus 16 characters (`gidO1p1DFsnw9h8p9YL`). The empty string means "no group". |
 
 ### RenderingControl
 
@@ -390,6 +433,19 @@ All take `InstanceID=0` and, for volume and mute, `Channel=Master`.
 | `SelectPreset` | its only preset is FactoryDefaults | **blocked** |
 
 Volume is per zone. Zones in a group keep separate volumes.
+
+Values:
+
+| Name | Type | What it holds |
+|---|---|---|
+| `InstanceID` | ui4 | Standard UPnP lets one device expose several virtual players. Nuvo zones have one, so this is always `0`. Same on AVTransport. |
+| `Channel` | string: `Master` | Which audio channel. `Master` is the only value the SCPD allows. |
+| `CurrentVolume` / `DesiredVolume` | ui2, 0..100 | The zone's volume as a step from 0 to 100. This is the number the UI shows. |
+| `VolumeDB` (event), `GetVolumeDB` result | i2 | The same volume as a gain. Standard UPnP units are 1/256 dB. Observed pairs: volume 10 = -16512 (about -64.5 dB), 16 = -13986 (-54.6 dB), 40 = -8500 (-33.2 dB). |
+| `CurrentMute` / `DesiredMute` | boolean | `1` muted, `0` not. SOAP replies use `0`/`1`; events use `TRUE`/`FALSE`. |
+| `Loudness` | boolean | Loudness compensation on/off. Not used by NuvoKit. |
+| `VolumeAdjustment` (`X_NUVO_AdjustVolume`) | i4 | A signed number of steps to add to the current volume **[public]**. |
+| `CurrentPresetNameList` (`ListPresets`) | string | Comma-separated preset names. The only preset is `FactoryDefaults`, which is why `SelectPreset` is blocked. |
 
 ### AVTransport
 
@@ -408,8 +464,40 @@ All take `InstanceID=0`.
 | `Seek`, `SetPlayMode`, `GetDeviceCapabilities`, `GetTransportSettings` | | no |
 | `SetAVTransportURI` | hazard, see section 13 | no |
 
-Transport states: `STOPPED`, `PLAYING`, `TRANSITIONING`, `PAUSED_PLAYBACK`,
-`NO_MEDIA_PRESENT`.
+Values:
+
+| Name | Type | What it holds |
+|---|---|---|
+| `CurrentTransportState` | string, one of five (below) | What the zone's player is doing right now. |
+| `CurrentTransportStatus` | string | Health of the transport. Standard values are `OK` and `ERROR_OCCURRED`; only `OK` has been observed. |
+| `CurrentSpeed` / `Speed` | string: `1` | Playback rate. `1` (normal) is the only value the SCPD allows; `Play` must be sent with `Speed=1`. |
+| `Actions` | string | Comma-separated names of the transport actions that are valid right now, e.g. `Next,Pause,Play,Stop,X_NUVO_Dislike,X_NUVO_Like`. Empty when idle. The names are AVTransport action names, so this is directly "which buttons to enable". |
+| `TrackMetaData` | string (DIDL) | Description of the **track currently playing**: title, art, service. Empty when idle. On radio this changes with each song. Format in section 7. |
+| `TrackURI` | string | Address of the current track, `nuvo:` scheme. On radio it is the station and stays constant across songs. |
+| `CurrentURI` | string | Address of the **source or queue** that was loaded (the thing the track belongs to). Empty when idle. For a SiriusXM channel started by the official app it was the channel's own URI, identical to `TrackURI`. |
+| `CurrentURIMetaData` | string (DIDL) | Description of that source. When idle it is an empty `<DIDL-Lite/>` element, not an empty string. NuvoKit falls back to it when `TrackMetaData` has no title. |
+| `Track`, `NrTracks` | ui4 | Position in, and length of, the current queue. `0` in every capture so far (idle and live radio). |
+| `RelTime` | string | Elapsed time in the track, `H:MM:SS.mmm` (`0:00:00.000`). |
+| `TrackDuration`, `MediaDuration`, `AbsTime` | string | `NOT_IMPLEMENTED` in every capture (all idle or live radio). |
+| `RelCount`, `AbsCount` | i4 | `2147483647`, the standard "not supported" value. |
+| `PlayMode` / `NewPlayMode` | string: `NORMAL`, `SHUFFLE`, `REPEAT_ONE`, `REPEAT_ALL`, `X_NUVO_SHUFFLE_REPEAT_ALL` | Shuffle/repeat mode. Only `NORMAL` observed. |
+| `Unit` (`Seek`) | string: `REL_TIME`, `TRACK_NR` | Whether `Target` is a time offset or a track number. Untested. |
+
+All `nuvo:` URIs are opaque addresses the player resolves itself
+(`nuvo:pandora:StationList/station_1`). They are not URLs you can fetch.
+
+`CurrentTransportState` values (the full list the SCPD allows):
+
+| Value | Meaning | NuvoKit |
+|---|---|---|
+| `NO_MEDIA_PRESENT` | Nothing is loaded. What an idle zone reports. | `.noMedia` |
+| `TRANSITIONING` | A source was accepted and the stream is starting or buffering. A brief stop on the way to `PLAYING`. | `.transitioning`; treated as playing for the play/pause button |
+| `PLAYING` | Audio is playing. | `.playing` |
+| `PAUSED_PLAYBACK` | Paused and resumable with `Play`. Only reachable on sources whose `Actions` include `Pause`. Not present in any capture yet. | `.paused` |
+| `STOPPED` | Playback was halted but the source is still loaded; `Play` restarts it. This is what live radio reports after `Stop`. | `.stopped` |
+
+Anything else maps to `.unknown`. Remember that these describe the zone's
+own player: on a group follower they are leftovers (section 8).
 
 `GetCurrentTransportActions` is the source of truth for which buttons make
 sense, and it varies by source **[seen]**:
@@ -433,6 +521,26 @@ sense, and it varies by source **[seen]**:
 | `X_NUVO_GetQueryID(ObjectID, Query)` | search | no |
 | `X_NUVO_CreateSubscribeQueue`, `X_NUVO_Subscribe(QueueID, ObjectID, Type)`, `X_NUVO_Unsubscribe`, `X_NUVO_ReadSubscribeQueue(QueueID)` | a second, polled event channel; Type is `rows` or `item` | no |
 | `GetSearchCapabilities`, `GetSortCapabilities`, `GetSystemUpdateID`, `UpdateObject` | | no |
+
+Values (how browsing behaves is covered in section 9):
+
+| Name | Type | What it holds |
+|---|---|---|
+| `ObjectID` | string | Address of one node in the player's menu tree, shaped `<service>:<path>` (`pandora:`, `tunein:browse/uri/...`, `lineIn:systemLineIns`). Known IDs are listed in section 9. |
+| `BrowseFlag` | string: `BrowseDirectChildren`, `BrowseMetadata` | `BrowseDirectChildren` lists the rows inside the object. `BrowseMetadata` is the standard way to ask for the object's own description; NuvoKit never sends it and it is untested here. |
+| `Filter` | string | Which DIDL properties to include. `*` means all. |
+| `StartingIndex` | ui4 | **0-based** offset of the first row wanted, for paging. (The play request's `StartingIndex` is a different thing: a 1-based row position.) |
+| `RequestedCount` | ui4 | Maximum rows to return. |
+| `SortCriteria` | string | Sent empty. |
+| `Result` | string (DIDL) | The rows: a DIDL-Lite document of `<item>` and `<container>` elements, in display order (section 7). |
+| `NumberReturned` | ui4 | How many rows are in this reply. |
+| `TotalMatches` | ui4 | How many rows the folder has in total. More pages exist while `StartingIndex + NumberReturned < TotalMatches`. |
+| `UpdateID` | ui4 | Standard change counter for the folder. `0` in the one saved reply. |
+| `ContainerProperties` (`X_NUVO_Browse` only) | string (DIDL) | A description of the folder itself: canonical ID, title, icon, whether it is searchable. Sent back when playing a row from it (section 9). |
+| `SubscribeQueueID`, `Arguments` (`X_NUVO_Browse` only) | string | Sent empty. Purpose **[unknown]**. |
+| `ResultEncrypted` (`X_NUVO_Browse2` only) | boolean | **[unknown]** |
+| `MetaData`, `ParentMetaData`, `Index` (`X_NUVO_Action2`, `X_NUVO_Browse2`) | string, string, ui4 | By their names, the DIDL of a row, the DIDL of its folder, and the row's position, i.e. the same triple the play request takes. Unconfirmed. `Context*` repeats the triple, presumably for a context-menu row. |
+| `ResultID` (`X_NUVO_GetQueryID`) | string | Presumably an object ID to browse for the search results. Unconfirmed. |
 
 Reading of the unused half: the official app's UI is server-driven. The
 player hands out a tree of menu rows; the app browses it, invokes rows with
@@ -929,24 +1037,157 @@ SiriusXM, Library, This iPad, Top 10, Napster.
 
 ## 14. Open questions
 
-1. Where is the real home menu? Not at object ID `0`. Until found, source
-   starting points are hardcoded.
-2. `X_NUVO_Browse` arguments `SubscribeQueueID` and `Arguments`, and all of
-   `X_NUVO_Browse2` including what sets `ResultEncrypted`.
-3. `X_NUVO_Action` / `X_NUVO_Action2`: needed for `action` rows ("Fix it!"),
-   context menus, and probably search.
-4. Search: `X_NUVO_GetQueryID` and the `x_nuvo_search` container.
-5. Queue and favorites editing (`X_NUVO_AddChild` and friends).
-6. The subscribe-queue event channel: when does the official app use it
-   instead of GENA?
-7. What `x:x_nuvo_activity` means.
-8. `UserTap` / `UserDoubleTap` on the Zone service.
-9. What speaks on TCP 4747.
-10. Group join and leave events have not been captured as they happen, only
-    the state before and after.
-11. Which other music services still work, given the backend is abandoned.
-    Known working: SiriusXM, Pandora, TuneIn, line-in.
-12. Is the official "Wireless Audio System API" document obtainable?
+Each entry states the question, what is already known, and why the answer
+matters. They are ordered roughly by how much of the official app's
+functionality they block.
+
+Questions 1 to 6 are all about ContentDirectory behaviour that the players
+expose, that the official app presumably relies on, and that NuvoKit does not
+use. UPnP control is unencrypted HTTP, so a packet capture
+of the official app talking to a player should answer most of them at once.
+Several of these actions may change state on the player, which is why they
+have not simply been tried.
+
+### 1. What object ID is the home menu?
+
+- **Question:** which `ObjectID` returns the list of sources a system
+  actually has, the way the official app's home screen shows them?
+- **Known:** the UPnP-standard root `0` returns no rows. `/` and `/stable/`
+  answer "does not exist"; `ui:` and `nuvo:` time out. The official app's
+  home tabs are SiriusXM, Library, This iPad, Top 10 and Napster, so such a
+  list exists somewhere.
+- **Why it matters:** `MediaBrowser.sources` is a hardcoded list of the four
+  roots found by guessing (`pandora:`, `siriusxm2:ui/root`, `tunein:`,
+  `lineIn:systemLineIns`). On a system with different services the app
+  would show the wrong sources.
+
+### 2. What do the extra arguments of `X_NUVO_Browse` do, and when is `X_NUVO_Browse2` needed?
+
+- **Question:** what belongs in `SubscribeQueueID` and `Arguments`, and what
+  does `X_NUVO_Browse2` do that `X_NUVO_Browse` cannot?
+- **Known:** `X_NUVO_Browse` works with both arguments empty on every folder
+  tried. `X_NUVO_Browse2` takes the same arguments plus `GroupID`,
+  `MetaData`, `ParentMetaData` and `Index`, and returns an extra
+  `ResultEncrypted` flag. It has never been called here.
+- **Why it matters:** some roots time out with the arguments empty
+  (section 9). It is not known whether those are dead providers or folders
+  that need one of these arguments.
+
+### 3. How is a row invoked when it is neither a folder nor playable?
+
+- **Question:** what must be sent to `X_NUVO_Action` or `X_NUVO_Action2` to
+  activate a row of type `action`, or an entry in a context menu?
+- **Known:** such rows exist. Unconfigured services list a "Fix it!" row of
+  type `action`. SiriusXM items carry an `x:x_nuvo_context` path (a
+  context menu), and `siriusxm2:playerMenu` lists "Sleep Timer" and "Save to Top 10".
+  `X_NUVO_Action` takes only `ObjectID`; `X_NUVO_Action2` takes `ObjectID`,
+  `GroupID`, a row/folder/index triple and a second "context" triple. Both
+  return `Result` and `Events`. Neither has been called.
+- **Why it matters:** the app can list these rows but cannot act on them, so
+  sleep timer, saving presets and service setup are all out of reach.
+
+### 4. How is a search performed?
+
+- **Question:** what are the steps to search a service: what goes in
+  `X_NUVO_GetQueryID`'s `ObjectID` and `Query`, and what is done with the
+  `ResultID` it returns?
+- **Known:** a folder advertises that it is searchable. Pandora's
+  `ContainerProperties` contains `<x:x_nuvo_search id="pandora:searches">`
+  titled "Artist, Track". The service description has
+  `X_NUVO_GetQueryID(ObjectID, Query) -> ResultID`. NuvoKit already reads
+  the search ID and prompt into `FolderInfo.searchID` / `searchPrompt`, but
+  nothing uses them.
+- **Unknown:** whether `ObjectID` is that search container's ID, whether
+  `Query` is plain text, whether `ResultID` is an object ID to pass to
+  `X_NUVO_Browse`, and whether picking a result is a normal play request or
+  needs `X_NUVO_Action2` (on Pandora a search result creates a station,
+  which is a write).
+- **Why it matters:** the original app supports search and this one has no
+  search at all.
+
+### 5. How are the queue, favorites and Top 10 edited?
+
+- **Question:** which container IDs do `X_NUVO_AddChild`, `X_NUVO_MoveChild`,
+  `X_NUVO_RemoveChild` and `X_NUVO_ClearChildren` operate on, and what do
+  their arguments hold?
+- **Known:** the actions exist and take a `ContainerID`, a `MetaData`
+  argument (presumably DIDL) and index arguments. `favorites:`, `presets:` and `playHistory:` time out as
+  bare roots; `top10:` answers "does not exist", yet `top10:saveTo` appears
+  in the SiriusXM player menu. Every source played so far is radio, so no
+  play queue has been observed at all.
+- **Why it matters:** Top 10 and Library are home tabs in the official app.
+
+### 6. What is the subscribe queue for, and does a client need it?
+
+- **Question:** what does the `X_NUVO_CreateSubscribeQueue` /
+  `X_NUVO_Subscribe` / `X_NUVO_ReadSubscribeQueue` mechanism deliver that
+  GENA events do not, and does anything break without it?
+- **Known:** a client creates a queue, subscribes it to an object ID with
+  type `rows` or `item`, and reads events back by polling. `X_NUVO_Browse`
+  accepts a `SubscribeQueueID`. The likely purpose is watching a menu folder
+  or a single row for changes, which GENA does not cover.
+- **Why it matters:** menus change under the user (the line-in list gains
+  and loses rows as devices are connected). NuvoKit currently handles that
+  by re-reading the line-in list every 30 s.
+
+### 7. What events does a zone push at the moment it joins or leaves a group?
+
+- **Question:** which Zone events fire during a join or leave, on which
+  zones, in what order and how quickly?
+- **Known:** only the state before and after. Both capture attempts missed
+  the change itself: `watch-playback.txt` ended before the zone was grouped,
+  and `watch-grouping.txt` finished subscribing after it, so it holds the
+  already-grouped state in its initial dumps and no change events. The public notes say
+  `Zone.Get` lags a grouping change by 1-2 s.
+- **Why it matters:** after any group change NuvoKit waits a fixed 1.5 s and
+  re-reads every zone (`settle()`). If the events are prompt and complete,
+  that delay is unnecessary.
+- **How to answer:** start `nuvoctl watch`, wait for "Listening", then join
+  and leave from the official app.
+
+### 8. Which other music services still work?
+
+- **Question:** of the services the players know about, which can still be
+  browsed and played now that the product is discontinued?
+- **Known:** SiriusXM, Pandora, TuneIn and line-in work. `spotify:` and
+  `alexa:` return informational rows only. `sirius:`, `napster:` and
+  `deezer:` report "not configured". Thirteen other roots time out
+  (section 9).
+- **Why it matters:** it decides which sources are worth listing, and
+  depends partly on questions 1 and 3 (finding the roots, and running the
+  "Fix it!" setup rows).
+
+### 9. What do `UserTap` and `UserDoubleTap` do?
+
+- **Question:** what happens when these Zone actions are called?
+- **Known:** they take no arguments and return a `groupID`. The zone's
+  `APIVersion` JSON has a `userTapAction` entry. The names suggest they
+  imitate a physical tap on a player. Not called, because they may change
+  state.
+- **Why it matters:** probably not at all for a remote-control app. Listed
+  for completeness.
+
+### 10. What does `x:x_nuvo_activity` mean?
+
+- **Question:** what is a client supposed to do when a folder's description
+  carries `x:x_nuvo_activity` 1 (`"activity": true` in the nsdk JSON)?
+- **Known:** seen on Pandora's `ContainerProperties`. Nothing else.
+- **Why it matters:** nothing depends on it today.
+
+### 11. What protocol is on TCP 4747?
+
+- **Question:** what speaks on port 4747, and is anything only reachable
+  that way?
+- **Known:** the port is open and advertised over mDNS as `_nuvoplayer._tcp`
+  with TXT `httpPort=80`. Nothing has been sent to it.
+- **Why it matters:** only if some feature turns out not to exist in UPnP.
+
+### 12. Can the official API document be obtained?
+
+- **Question:** is Legrand's "Wireless Audio System API" document available
+  anywhere?
+- **Why it matters:** it would answer most of the questions above without
+  reverse engineering.
 
 ---
 
