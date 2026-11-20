@@ -74,8 +74,9 @@ public final class NuvoSystem {
     }
 
     private func runTick(_ tick: Int) async {
-        // Rediscover every minute: description ports change when a player reboots.
-        if zones.isEmpty || tick % 12 == 0 {
+        // Search once at startup. After that, rediscover every minute only while
+        // at least one zone is known.
+        if tick == 0 || (!zones.isEmpty && tick % 12 == 0) {
             await discover()
         }
         await maintainSubscriptions()

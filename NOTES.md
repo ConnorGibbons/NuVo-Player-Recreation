@@ -974,7 +974,7 @@ both actions hang on the same folders.
 
 | Every | Work |
 |---|---|
-| first tick, then every 12th tick (60 s), or whenever no zones are known | SSDP discovery |
+| first tick, then every 12th tick (60 s) while at least one zone is known | SSDP discovery |
 | every tick | renew due subscriptions; re-subscribe zones without live updates |
 | every tick | `refresh()` zones that have no live updates or are unreachable |
 | every 6th tick (30 s) | `refresh()` every zone as a safety net; reload line inputs |
