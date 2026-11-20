@@ -372,6 +372,10 @@ observed here, or unknown. Everything is a string on the wire: `boolean` is
 `0`/`1` in SOAP replies, and a number is its decimal text. A field the player
 does not support is filled with the literal text `NOT_IMPLEMENTED`.
 
+Where a value can only be one of a fixed set, its type reads "one of N" and
+the N allowed values follow as `↳` rows directly beneath it. A `↳` row is a
+possible value of the row above, not a separate field.
+
 **SOAP and events use different names for the same thing.** A value read
 with an action and the same value pushed in an event are named differently:
 
@@ -414,8 +418,14 @@ Values:
 | `Connecting` | boolean | `0` in every capture. Meaning **[unknown]**. |
 | `MasterGroup` | string (JSON) | `{"id":"gid...","sortKey":"..."}`: the group this zone hosts. `id` is empty when it hosts none. Format in section 7, meaning in section 8. |
 | `MemberGroup` | string (JSON) | Same shape: the group this zone is listening to. **A non-empty `id` is what "on" means.** |
-| `AudioInput` | string: `player`, `toslink`, `rca` | What the zone's physical input currently detects, not a setting. `player` = nothing external (the built-in streamer), `toslink` = optical, `rca` = analog. `rca` is in the SCPD but has not been observed. |
-| `PowerState` | string: `standby`, `active`, `learning` | Hardware power state, **not** on/off (section 8). P4300 zones sit at `active` even when idle; the P500 is `standby` when idle and `active` in a group. `learning` is in the SCPD; never observed, meaning **[unknown]**. |
+| `AudioInput` | string, one of 3 | What the zone's physical input currently detects. It is a reading, not a setting. |
+| ↳ `player` | value | Nothing external detected; the built-in streamer. |
+| ↳ `toslink` | value | A signal on the optical input. |
+| ↳ `rca` | value | A signal on the analog input. In the SCPD; not yet observed. |
+| `PowerState` | string, one of 3 | Hardware power state. **Not** on/off; that is `MemberGroup` (section 8). |
+| ↳ `active` | value | Awake. P4300 zones report this even when idle; the P500 reports it while in a group. |
+| ↳ `standby` | value | Low-power idle. Seen only on the P500 when it is in no group. |
+| ↳ `learning` | value | In the SCPD; never observed. Meaning **[unknown]**. |
 | `UpdateState` | string (JSON) | Firmware update status: `{"title":"","version":"","id":"none"}` when there is nothing pending. Other values not observed. |
 | `memberIDs` (argument) | string (JSON) | A JSON array of zone IDs: `["memberId-0025ed1e2a55"]`. Always an array, even for one zone. |
 | `groupID` | string | Opaque ID the player assigns, `gid` plus 16 characters (`gidO1p1DFsnw9h8p9YL`). The empty string means "no group". |
@@ -468,7 +478,12 @@ Values:
 
 | Name | Type | What it holds |
 |---|---|---|
-| `CurrentTransportState` | string, one of five (below) | What the zone's player is doing right now. |
+| `CurrentTransportState` | string, one of 5 | What the zone's own player is doing right now. On a group follower this is a leftover (section 8). NuvoKit maps it to `TransportState`; any other text becomes `.unknown`. |
+| ↳ `NO_MEDIA_PRESENT` | value | Nothing is loaded. What an idle zone reports. NuvoKit: `.noMedia`. |
+| ↳ `TRANSITIONING` | value | A source was accepted and the stream is starting or buffering; a brief stop on the way to `PLAYING`. NuvoKit: `.transitioning`, treated as playing for the play/pause button. |
+| ↳ `PLAYING` | value | Audio is playing. NuvoKit: `.playing`. |
+| ↳ `PAUSED_PLAYBACK` | value | Paused and resumable with `Play`. Only reachable on sources whose `Actions` include `Pause`. Not present in any capture yet. NuvoKit: `.paused`. |
+| ↳ `STOPPED` | value | Playback was halted but the source is still loaded; `Play` restarts it. What live radio reports after `Stop`. NuvoKit: `.stopped`. |
 | `CurrentTransportStatus` | string | Health of the transport. Standard values are `OK` and `ERROR_OCCURRED`; only `OK` has been observed. |
 | `CurrentSpeed` / `Speed` | string: `1` | Playback rate. `1` (normal) is the only value the SCPD allows; `Play` must be sent with `Speed=1`. |
 | `Actions` | string | Comma-separated names of the transport actions that are valid right now, e.g. `Next,Pause,Play,Stop,X_NUVO_Dislike,X_NUVO_Like`. Empty when idle. The names are AVTransport action names, so this is directly "which buttons to enable". |
@@ -480,24 +495,18 @@ Values:
 | `RelTime` | string | Elapsed time in the track, `H:MM:SS.mmm` (`0:00:00.000`). |
 | `TrackDuration`, `MediaDuration`, `AbsTime` | string | `NOT_IMPLEMENTED` in every capture (all idle or live radio). |
 | `RelCount`, `AbsCount` | i4 | `2147483647`, the standard "not supported" value. |
-| `PlayMode` / `NewPlayMode` | string: `NORMAL`, `SHUFFLE`, `REPEAT_ONE`, `REPEAT_ALL`, `X_NUVO_SHUFFLE_REPEAT_ALL` | Shuffle/repeat mode. Only `NORMAL` observed. |
-| `Unit` (`Seek`) | string: `REL_TIME`, `TRACK_NR` | Whether `Target` is a time offset or a track number. Untested. |
+| `PlayMode` / `NewPlayMode` | string, one of 5 | Shuffle/repeat mode of the queue. Only `NORMAL` has been observed; the meanings below are the standard ones. |
+| ↳ `NORMAL` | value | Play in order, once. |
+| ↳ `SHUFFLE` | value | Random order. |
+| ↳ `REPEAT_ONE` | value | Repeat the current track. |
+| ↳ `REPEAT_ALL` | value | Repeat the whole queue. |
+| ↳ `X_NUVO_SHUFFLE_REPEAT_ALL` | value | Nuvo addition: by its name, shuffle and repeat together. |
+| `Unit` (`Seek`) | string, one of 2 | How to read `Seek`'s `Target` argument. Untested. |
+| ↳ `REL_TIME` | value | `Target` is a time offset into the track. |
+| ↳ `TRACK_NR` | value | `Target` is a track number in the queue. |
 
 All `nuvo:` URIs are opaque addresses the player resolves itself
 (`nuvo:pandora:StationList/station_1`). They are not URLs you can fetch.
-
-`CurrentTransportState` values (the full list the SCPD allows):
-
-| Value | Meaning | NuvoKit |
-|---|---|---|
-| `NO_MEDIA_PRESENT` | Nothing is loaded. What an idle zone reports. | `.noMedia` |
-| `TRANSITIONING` | A source was accepted and the stream is starting or buffering. A brief stop on the way to `PLAYING`. | `.transitioning`; treated as playing for the play/pause button |
-| `PLAYING` | Audio is playing. | `.playing` |
-| `PAUSED_PLAYBACK` | Paused and resumable with `Play`. Only reachable on sources whose `Actions` include `Pause`. Not present in any capture yet. | `.paused` |
-| `STOPPED` | Playback was halted but the source is still loaded; `Play` restarts it. This is what live radio reports after `Stop`. | `.stopped` |
-
-Anything else maps to `.unknown`. Remember that these describe the zone's
-own player: on a group follower they are leftovers (section 8).
 
 `GetCurrentTransportActions` is the source of truth for which buttons make
 sense, and it varies by source **[seen]**:
@@ -527,7 +536,9 @@ Values (how browsing behaves is covered in section 9):
 | Name | Type | What it holds |
 |---|---|---|
 | `ObjectID` | string | Address of one node in the player's menu tree, shaped `<service>:<path>` (`pandora:`, `tunein:browse/uri/...`, `lineIn:systemLineIns`). Known IDs are listed in section 9. |
-| `BrowseFlag` | string: `BrowseDirectChildren`, `BrowseMetadata` | `BrowseDirectChildren` lists the rows inside the object. `BrowseMetadata` is the standard way to ask for the object's own description; NuvoKit never sends it and it is untested here. |
+| `BrowseFlag` | string, one of 2 | What kind of answer is wanted about `ObjectID`. |
+| ↳ `BrowseDirectChildren` | value | List the rows inside the object. The only one NuvoKit sends. |
+| ↳ `BrowseMetadata` | value | Describe the object itself (standard UPnP meaning). Untested here. |
 | `Filter` | string | Which DIDL properties to include. `*` means all. |
 | `StartingIndex` | ui4 | **0-based** offset of the first row wanted, for paging. (The play request's `StartingIndex` is a different thing: a 1-based row position.) |
 | `RequestedCount` | ui4 | Maximum rows to return. |
