@@ -1,7 +1,8 @@
 # Nuvo Player Portfolio: how the backend works
 
 A technical breakdown of how a Nuvo Player Portfolio system is controlled over
-the network, layer by layer, and how NuvoKit implements each layer.
+the network: the three protocols it uses (sections 3 to 5), what they carry
+(sections 6 and 7), and how NuvoKit implements each.
 
 Last reviewed 2026-11-20 against the code at commit `0a02fb4`. The earlier version of this
 file was a chronological reverse-engineering log; it is still in git history
@@ -22,14 +23,14 @@ Unmarked statements about NuvoKit describe the code as written.
 
 - [1. Overview](#1-overview)
 - [2. Identity and addressing](#2-identity-and-addressing)
-- [3. Layer 1: discovery (SSDP)](#3-layer-1-discovery-ssdp)
-- [4. Layer 2: control (SOAP over HTTP)](#4-layer-2-control-soap-over-http)
-- [5. Layer 3: eventing (GENA)](#5-layer-3-eventing-gena)
-- [6. Layer 4: the services and their actions](#6-layer-4-the-services-and-their-actions)
-- [7. Layer 5: data formats](#7-layer-5-data-formats)
+- [3. Discovery (SSDP)](#3-discovery-ssdp)
+- [4. Control (SOAP over HTTP)](#4-control-soap-over-http)
+- [5. Eventing (GENA)](#5-eventing-gena)
+- [6. The services and their actions](#6-the-services-and-their-actions)
+- [7. Data formats](#7-data-formats)
 - [8. Behaviour model](#8-behaviour-model)
 - [9. Browsing and playing sources](#9-browsing-and-playing-sources)
-- [10. NuvoKit: how the code maps onto the layers](#10-nuvokit-how-the-code-maps-onto-the-layers)
+- [10. NuvoKit: how the code is organised](#10-nuvokit-how-the-code-is-organised)
 - [11. Interfacing with the system](#11-interfacing-with-the-system)
 - [12. Other interfaces on the players (not used by NuvoKit)](#12-other-interfaces-on-the-players-not-used-by-nuvokit)
 - [13. Hazards](#13-hazards)
@@ -46,9 +47,10 @@ in their SSDP `Server` header) **[seen]**. Nuvo added one
 custom service (`Zone`) and a set of `X_NUVO_*` actions on the standard
 services.
 
-There are three channels, and NuvoKit has one component for each:
+Control uses three separate protocols, each on its own connection, and
+NuvoKit has one component for each:
 
-| Channel | Transport | Direction | Purpose | NuvoKit |
+| Protocol | Transport | Direction | Purpose | NuvoKit |
 |---|---|---|---|---|
 | SSDP | UDP, port 1900 | app -> multicast, zone -> app | find zones | `SSDP.swift` |
 | SOAP | HTTP POST | app -> zone | commands and queries | `SOAP.swift` |
@@ -111,7 +113,7 @@ requests, which is why NuvoKit carries a blocklist of destructive actions
 
 ---
 
-## 3. Layer 1: discovery (SSDP)
+## 3. Discovery (SSDP)
 
 ### On the wire
 
@@ -202,7 +204,7 @@ the UPnP port, so an SSDP unicast probe is still needed afterwards.
 
 ---
 
-## 4. Layer 2: control (SOAP over HTTP)
+## 4. Control (SOAP over HTTP)
 
 ### On the wire
 
@@ -283,7 +285,7 @@ directly inside the SOAP XML. Section 7 covers the formats.
 
 ---
 
-## 5. Layer 3: eventing (GENA)
+## 5. Eventing (GENA)
 
 Polling six actions per zone would be slow and laggy, so UPnP lets a client
 register an HTTP callback and have the device push changes.
@@ -421,11 +423,11 @@ them.
 
 ---
 
-## 6. Layer 4: the services and their actions
+## 6. The services and their actions
 
 Action lists are from the Sound Bar's SCPDs **[seen]**. Each table has the
 same four columns:
-
+* **Action: **The action described by this row.
 - **Inputs**: every argument the action takes, in the order the SCPD lists
   them. `none` means it takes no arguments.
 - **Notes**: what it is for. Anything after `->` is a result the action
@@ -671,7 +673,7 @@ Standard, mostly unimplemented on the device **[public]**. Unused.
 
 ---
 
-## 7. Layer 5: data formats
+## 7. Data formats
 
 ### Group JSON
 
@@ -916,20 +918,20 @@ something is `GroupCreate` followed by this.
 
 ---
 
-## 10. NuvoKit: how the code maps onto the layers
+## 10. NuvoKit: how the code is organised
 
-| File | Layer | Role |
+| File | Section | Role |
 |---|---|---|
 | `UPnP/XMLNode.swift` | - | XML tree, `xmlEscape` |
-| `UPnP/SSDP.swift` | 1 | discovery sockets, `LocalAddress` |
-| `UPnP/DeviceDescription.swift` | 1 | description document, `UPnPService` |
-| `UPnP/SOAP.swift` | 2 | `SOAPClient`, `SOAPFault`, `UPnPError` |
-| `UPnP/Eventing.swift` | 3 | `EventServer`, `GENA`, `GENAParser` |
-| `Nuvo/Models.swift` | 4-5 | constants, `NuvoSafety`, `ZoneInfo`, `TransportState`, `TrackInfo`, `LineInput`, `MediaEntry`, `FolderInfo`, `BrowsePage`, `DIDL` |
-| `Nuvo/ZoneClient.swift` | 4 | stateless per-zone API, `NuvoDiscovery` |
-| `Nuvo/Zone.swift` | state | observable state of one zone |
-| `Nuvo/NuvoSystem.swift` | state | the whole installation: discovery, events, groups, commands |
-| `Nuvo/MediaBrowser.swift` | state | navigation state for browsing sources |
+| `UPnP/SSDP.swift` | 3 | discovery sockets, `LocalAddress` |
+| `UPnP/DeviceDescription.swift` | 3 | description document, `UPnPService` |
+| `UPnP/SOAP.swift` | 4 | `SOAPClient`, `SOAPFault`, `UPnPError` |
+| `UPnP/Eventing.swift` | 5 | `EventServer`, `GENA`, `GENAParser` |
+| `Nuvo/Models.swift` | 6, 7 | constants, `NuvoSafety`, `ZoneInfo`, `TransportState`, `TrackInfo`, `LineInput`, `MediaEntry`, `FolderInfo`, `BrowsePage`, `DIDL` |
+| `Nuvo/ZoneClient.swift` | 6 | stateless per-zone API, `NuvoDiscovery` |
+| `Nuvo/Zone.swift` | 8 | observable state of one zone |
+| `Nuvo/NuvoSystem.swift` | 8 | the whole installation: discovery, events, groups, commands |
+| `Nuvo/MediaBrowser.swift` | 9 | navigation state for browsing sources |
 
 Everything under `UPnP/` is generic and knows nothing about Nuvo. NuvoKit has
 no third-party dependencies.

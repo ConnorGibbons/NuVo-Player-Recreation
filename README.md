@@ -1,6 +1,6 @@
 Note: This is my first attempt at a 'vibe coding' project. Most of this code was guided by me, but written by Claude. Therefore I can't verify it all works as intended or does what it states. I have tested this on my own NuVo system and it seems to work well. 
 
-Take a look at NOTES.md for a more detailed look at how each layer works, and some notes on the Nuvo system itself.
+Take a look at NOTES.md for a more detailed look at how each protocol works, and some notes on the Nuvo system itself.
 
 # Nuvo Player (recreation)
 
