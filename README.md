@@ -39,15 +39,14 @@ Or open `Package.swift` in Xcode and run the `NuvoPlayer` scheme.
 - Discovery, zone list, model/firmware/power state
 - Volume and mute, with live updates pushed from the player
 - Transport: play/pause, next, previous, now-playing text
-- Line-in source selection, turning a zone on and off
+- Turning a zone on and off
 - Grouping zones together
+- Browsing & Playing music/channels from Pandora and Sirius XM. Album art + song metadata works too.
 
 ## Status
 
-Written without a Swift toolchain available, so the first build may need
-fixes. Verified so far: nothing at runtime. Grouping and line-in playback
-are implemented from public reverse-engineering notes and have not been run
-against hardware yet.
+NuvoPlayer application does work. I used this own my own system with four zones. Creating a group and playing music with Pandora & Sirius both work.
+Volume control, play/pause, skip functions all work too. 
 
 ## Safety
 
@@ -58,8 +57,5 @@ path to the network, so no caller can bypass it.
 
 ## Not built yet
 
-- Browsing music services, queue, favorites, search (needs the undocumented
-  `X_NUVO_Browse` actions reverse engineered)
-- Album art
 - An iOS target (NuvoKit is ready; discovery on iOS needs the multicast
   entitlement or a Bonjour-based path)
