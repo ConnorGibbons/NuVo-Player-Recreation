@@ -1,4 +1,8 @@
+This is a log of me starting nuvoctl w/ listening, and then creating a few groups.
+
 Building for debugging...
+
+
 Build complete! (0.13 sec)
 subscribed [d16483] Bar / Zone
 subscribed [c77919] Bar / AVTransport
