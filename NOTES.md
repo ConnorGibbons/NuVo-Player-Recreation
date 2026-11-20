@@ -372,9 +372,16 @@ observed here, or unknown. Everything is a string on the wire: `boolean` is
 `0`/`1` in SOAP replies, and a number is its decimal text. A field the player
 does not support is filled with the literal text `NOT_IMPLEMENTED`.
 
-Where a value can only be one of a fixed set, its type reads "one of N" and
-the N allowed values follow as `↳` rows directly beneath it. A `↳` row is a
-possible value of the row above, not a separate field.
+Where a value is drawn from a fixed set, the allowed values follow as `↳`
+rows directly beneath it. A `↳` row is a possible value of the row above, not
+a separate field. The type says how they combine:
+
+- **"one of N"**: the value is exactly one of the N rows.
+- **"any of N (comma-separated)"**: the value is a list holding zero or more
+  of the N rows, joined with commas.
+
+Unless a row says otherwise, the set comes from the SCPD's own allowed-value
+list.
 
 **SOAP and events use different names for the same thing.** A value read
 with an action and the same value pushed in an event are named differently:
@@ -449,13 +456,15 @@ Values:
 | Name | Type | What it holds |
 |---|---|---|
 | `InstanceID` | ui4 | Standard UPnP lets one device expose several virtual players. Nuvo zones have one, so this is always `0`. Same on AVTransport. |
-| `Channel` | string: `Master` | Which audio channel. `Master` is the only value the SCPD allows. |
+| `Channel` | string, one of 1 | Which audio channel a volume or mute request applies to. |
+| ↳ `Master` | value | The whole zone. The only value the SCPD allows. |
 | `CurrentVolume` / `DesiredVolume` | ui2, 0..100 | The zone's volume as a step from 0 to 100. This is the number the UI shows. |
 | `VolumeDB` (event), `GetVolumeDB` result | i2 | The same volume as a gain. Standard UPnP units are 1/256 dB. Observed pairs: volume 10 = -16512 (about -64.5 dB), 16 = -13986 (-54.6 dB), 40 = -8500 (-33.2 dB). |
 | `CurrentMute` / `DesiredMute` | boolean | `1` muted, `0` not. SOAP replies use `0`/`1`; events use `TRUE`/`FALSE`. |
 | `Loudness` | boolean | Loudness compensation on/off. Not used by NuvoKit. |
 | `VolumeAdjustment` (`X_NUVO_AdjustVolume`) | i4 | A signed number of steps to add to the current volume **[public]**. |
-| `CurrentPresetNameList` (`ListPresets`) | string | Comma-separated preset names. The only preset is `FactoryDefaults`, which is why `SelectPreset` is blocked. |
+| `CurrentPresetNameList` (`ListPresets`) | string, any of 1 (comma-separated) | The names `SelectPreset` accepts. |
+| ↳ `FactoryDefaults` | value | The only preset. In standard UPnP, selecting it restores audio settings to factory values; what it does on these players is untested, which is why `SelectPreset` is blocked. |
 
 ### AVTransport
 
@@ -484,9 +493,19 @@ Values:
 | ↳ `PLAYING` | value | Audio is playing. NuvoKit: `.playing`. |
 | ↳ `PAUSED_PLAYBACK` | value | Paused and resumable with `Play`. Only reachable on sources whose `Actions` include `Pause`. Not present in any capture yet. NuvoKit: `.paused`. |
 | ↳ `STOPPED` | value | Playback was halted but the source is still loaded; `Play` restarts it. What live radio reports after `Stop`. NuvoKit: `.stopped`. |
-| `CurrentTransportStatus` | string | Health of the transport. Standard values are `OK` and `ERROR_OCCURRED`; only `OK` has been observed. |
-| `CurrentSpeed` / `Speed` | string: `1` | Playback rate. `1` (normal) is the only value the SCPD allows; `Play` must be sent with `Speed=1`. |
-| `Actions` | string | Comma-separated names of the transport actions that are valid right now, e.g. `Next,Pause,Play,Stop,X_NUVO_Dislike,X_NUVO_Like`. Empty when idle. The names are AVTransport action names, so this is directly "which buttons to enable". |
+| `CurrentTransportStatus` | string, one of 2 | Health of the transport. The SCPD does not enumerate this one; the two values are the standard UPnP ones. |
+| ↳ `OK` | value | Normal. The only value observed. |
+| ↳ `ERROR_OCCURRED` | value | Standard UPnP value for a transport fault. Never observed. |
+| `CurrentSpeed` / `Speed` | string, one of 1 | Playback rate. `Play` must be sent with `Speed=1`. |
+| ↳ `1` | value | Normal speed. The only value the SCPD allows. |
+| `Actions` | string, any of 6 seen (comma-separated) | The transport actions that are valid right now, e.g. `Next,Pause,Play,Stop,X_NUVO_Dislike,X_NUVO_Like`. Empty when idle. Each name is an AVTransport action, so this is directly "which buttons to enable". The SCPD does not enumerate the set; the rows below are every name seen so far. |
+| ↳ `Play` | value | `Play` will start or resume playback. |
+| ↳ `Pause` | value | The source can be paused. Seen on Pandora; absent on SiriusXM live radio. |
+| ↳ `Stop` | value | Playback can be stopped. |
+| ↳ `Next` | value | The source can skip forward. Seen on Pandora. |
+| ↳ `X_NUVO_Like` | value | The current song can be given a thumbs up. Seen on Pandora. |
+| ↳ `X_NUVO_Dislike` | value | The current song can be given a thumbs down. Seen on Pandora. |
+| ↳ `Previous` | value | Not seen in any capture. Listed because it is a standard name and NuvoKit sends the `Previous` action. |
 | `TrackMetaData` | string (DIDL) | Description of the **track currently playing**: title, art, service. Empty when idle. On radio this changes with each song. Format in section 7. |
 | `TrackURI` | string | Address of the current track, `nuvo:` scheme. On radio it is the station and stays constant across songs. |
 | `CurrentURI` | string | Address of the **source or queue** that was loaded (the thing the track belongs to). Empty when idle. For a SiriusXM channel started by the official app it was the channel's own URI, identical to `TrackURI`. |
@@ -550,6 +569,9 @@ Values (how browsing behaves is covered in section 9):
 | `ContainerProperties` (`X_NUVO_Browse` only) | string (DIDL) | A description of the folder itself: canonical ID, title, icon, whether it is searchable. Sent back when playing a row from it (section 9). |
 | `SubscribeQueueID`, `Arguments` (`X_NUVO_Browse` only) | string | Sent empty. Purpose **[unknown]**. |
 | `ResultEncrypted` (`X_NUVO_Browse2` only) | boolean | **[unknown]** |
+| `Type` (`X_NUVO_Subscribe`, `X_NUVO_Unsubscribe`) | string, one of 2 | What kind of change a subscribe queue should report for an object. Meanings below are read from the names; unconfirmed. |
+| ↳ `rows` | value | Changes to the list of rows inside a folder. |
+| ↳ `item` | value | Changes to a single item. |
 | `MetaData`, `ParentMetaData`, `Index` (`X_NUVO_Action2`, `X_NUVO_Browse2`) | string, string, ui4 | By their names, the DIDL of a row, the DIDL of its folder, and the row's position, i.e. the same triple the play request takes. Unconfirmed. `Context*` repeats the triple, presumably for a context-menu row. |
 | `ResultID` (`X_NUVO_GetQueryID`) | string | Presumably an object ID to browse for the search results. Unconfirmed. |
 
