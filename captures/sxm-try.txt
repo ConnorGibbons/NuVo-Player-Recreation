@@ -1,0 +1,38 @@
+Building for debugging...
+[2 / 6] nuvoctl-product
+[5 / 8] nuvoctl-product
+[7 / 8] nuvoctl-product
+Build complete! (0.85 sec)
+Asking Bar.
+
+FOUND  siriusxm2:playerMenu  ->  2 row(s) of 2  folder "" siriusxm2:playerMenu
+  1   [folder] Sleep Timer type=container
+               id  nuvoUIMenu:sleepTimer
+  2   [folder] Save to Top 10 type=container
+               id  top10:saveTo
+no     siriusxm2:ui  (UPnP error 501: Node at path 'siriusxm2:ui' does not exist (HTTP 500))
+no     siriusxm2:ui/  (UPnP error 501: Node at path 'siriusxm2:ui/' does not exist (HTTP 500))
+no     siriusxm2:ui/home  (UPnP error 501: Node at path 'siriusxm2:ui/home' does not exist (HTTP 500))
+
+FOUND  siriusxm2:ui/root  ->  4 row(s) of 4  folder "" siriusxm2:ui/browse
+  1   [folder] All Channels type=container
+               id  siriusxm2:ui/carousel?primary=App:carousel:channels_all
+  2   [folder] Favorites type=container
+               id  siriusxm2:ui/carousel?primary=App:carousel:favorites_everest
+  3   [folder] Recents type=container
+               id  siriusxm2:ui/carousel?primary=App:carousel:recents
+  4   [folder] For You type=container
+               id  siriusxm2:ui/root/forYou
+no     siriusxm2:ui/main  (UPnP error 501: Node at path 'siriusxm2:ui/main' does not exist (HTTP 500))
+no     siriusxm2:ui/menu  (UPnP error 501: Node at path 'siriusxm2:ui/menu' does not exist (HTTP 500))
+no     siriusxm2:ui/carousel  (UPnP error 501: Service is currently unavailable. Try again later. (HTTP 500))
+no     siriusxm2:ui/categories  (UPnP error 501: Node at path 'siriusxm2:ui/categories' does not exist (HTTP 500))
+no     siriusxm2:ui/channels  (UPnP error 501: Node at path 'siriusxm2:ui/channels' does not exist (HTTP 500))
+no     siriusxm2:ui/favorites  (UPnP error 501: Node at path 'siriusxm2:ui/favorites' does not exist (HTTP 500))
+no     siriusxm2:ui/carousel?page-name=for_you  (UPnP error 501: Service is currently unavailable. Try again later. (HTTP 500))
+no     siriusxm2:ui/carousel?page-name=music  (UPnP error 501: Service is currently unavailable. Try again later. (HTTP 500))
+no     siriusxm2:home  (UPnP error 501: Node at path 'siriusxm2:home' does not exist (HTTP 500))
+no     siriusxm2:root  (UPnP error 501: Node at path 'siriusxm2:root' does not exist (HTTP 500))
+no     siriusxm2:main  (UPnP error 501: Node at path 'siriusxm2:main' does not exist (HTTP 500))
+no     siriusxm2:browse  (UPnP error 501: Node at path 'siriusxm2:browse' does not exist (HTTP 500))
+no     siriusxm2:playback  (UPnP error 501: Node at path 'siriusxm2:playback' does not exist (HTTP 500))

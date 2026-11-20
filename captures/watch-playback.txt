@@ -1,0 +1,260 @@
+Building for debugging...
+Build complete! (0.13 sec)
+subscribed [4720f1] Bar / Zone
+subscribed [c98649] Bar / AVTransport
+[4720f1] APIVersion = {"userTapAction":{"min":0,"max":1},"api":{"min":15,"max":15},"wifiThirdParty":{"min":0,"max":1}}
+[4720f1] Active = 1
+[4720f1] AudioInput = player
+[4720f1] CompatibleDevices = pcDevBuild,dev_board,p100,p200,p300,p400,p500,p3100,p3500,p4300,p600,p5050,p5100,p5200,au7001,au7002
+[4720f1] Connecting = 0
+[4720f1] FirmwareVersion = 2025.0
+[4720f1] HttpPort = 80
+[4720f1] Icon = skin:iconZoneBar
+[4720f1] Language = en-US
+[4720f1] MasterGroup = {"id":"","sortKey":"00000001794873808666"}
+[4720f1] MemberGroup = {"id":"","sortKey":"00000001794873808668"}
+[4720f1] MemberID = memberId-0025ed1e013e
+[4720f1] Model = p4300
+[4720f1] PowerState = active
+[4720f1] SystemID = nuvoCSRJnoZYu81NO7dz
+[4720f1] Title = Bar
+[4720f1] UpdateState = {"title":"","version":"","id":"none"}
+[4720f1] UpdateURL = http://10.0.0.109:80/firmwareupdate.fcgi
+[4720f1] WirelessSupported = 0
+subscribed [16919e] Bar / RenderingControl
+[c98649] AVTransportURI = 
+[c98649] AVTransportURIMetaData = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[c98649] CurrentMediaDuration = NOT_IMPLEMENTED
+[c98649] CurrentPlayMode = NORMAL
+[c98649] CurrentRecordQualityMode = NOT_IMPLEMENTED
+[c98649] CurrentTrack = 0
+[c98649] CurrentTrackDuration = NOT_IMPLEMENTED
+[c98649] CurrentTrackMetaData = 
+[c98649] CurrentTrackURI = 
+[c98649] CurrentTransportActions = 
+[c98649] NextAVTransportURI = 
+[c98649] NextAVTransportURIMetaData = 
+[c98649] NumberOfTracks = 0
+[c98649] PlaybackStorageMedium = UNKNOWN
+[c98649] PossiblePlaybackStorageMedia = UNKNOWN
+[c98649] PossibleRecordQualityModes = NOT_IMPLEMENTED
+[c98649] PossibleRecordStorageMedia = NOT_IMPLEMENTED
+[c98649] RecordMediumWriteStatus = NOT_IMPLEMENTED
+[c98649] RecordStorageMedium = NOT_IMPLEMENTED
+[c98649] TransportPlaySpeed = 1
+[c98649] TransportState = NO_MEDIA_PRESENT
+[c98649] TransportStatus = OK
+[c98649] X_NUVO_ExtraInfo = 
+[c98649] X_NUVO_Info = 
+[c98649] X_NUVO_MatchingAVTransportURIs = []
+subscribed [1364bd] Family Room / Zone
+[16919e] Loudness = FALSE
+[16919e] Mute = FALSE
+[16919e] Volume = 16
+[16919e] VolumeDB = -13986
+subscribed [3af66e] Family Room / AVTransport
+subscribed [de3d7f] Family Room / RenderingControl
+[1364bd] APIVersion = {"userTapAction":{"min":0,"max":1},"api":{"min":15,"max":15},"wifiThirdParty":{"min":0,"max":1}}
+[1364bd] Active = 1
+[1364bd] AudioInput = player
+[1364bd] CompatibleDevices = pcDevBuild,dev_board,p100,p200,p300,p400,p500,p3100,p3500,p4300,p600,p5050,p5100,p5200,au7001,au7002
+[1364bd] Connecting = 0
+[1364bd] FirmwareVersion = 2025.0
+[1364bd] HttpPort = 80
+[1364bd] Icon = skin:iconZoneFamilyRoom
+[1364bd] Language = en-US
+[1364bd] MasterGroup = {"id":"gidO1p1DFsnw9h8p9YL","sortKey":"00000001794876908993"}
+[1364bd] MemberGroup = {"id":"gidO1p1DFsnw9h8p9YL","sortKey":"00000001794876909021"}
+[1364bd] MemberID = memberId-0025ed1dfe08
+[1364bd] Model = p4300
+[1364bd] PowerState = active
+[1364bd] SystemID = nuvoCSRJnoZYu81NO7dz
+[1364bd] Title = Family Room
+[1364bd] UpdateState = {"title":"","version":"","id":"none"}
+[1364bd] UpdateURL = http://10.0.0.197:80/firmwareupdate.fcgi
+[1364bd] WirelessSupported = 0
+[3af66e] AVTransportURI = 
+[3af66e] AVTransportURIMetaData = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[3af66e] CurrentMediaDuration = NOT_IMPLEMENTED
+[3af66e] CurrentPlayMode = NORMAL
+[3af66e] CurrentRecordQualityMode = NOT_IMPLEMENTED
+[3af66e] CurrentTrack = 0
+[3af66e] CurrentTrackDuration = NOT_IMPLEMENTED
+[3af66e] CurrentTrackMetaData = 
+[3af66e] CurrentTrackURI = 
+[3af66e] CurrentTransportActions = 
+[3af66e] NextAVTransportURI = 
+[3af66e] NextAVTransportURIMetaData = 
+[3af66e] NumberOfTracks = 0
+[3af66e] PlaybackStorageMedium = UNKNOWN
+[3af66e] PossiblePlaybackStorageMedia = UNKNOWN
+[3af66e] PossibleRecordQualityModes = NOT_IMPLEMENTED
+[3af66e] PossibleRecordStorageMedia = NOT_IMPLEMENTED
+[3af66e] RecordMediumWriteStatus = NOT_IMPLEMENTED
+[3af66e] RecordStorageMedium = NOT_IMPLEMENTED
+[3af66e] TransportPlaySpeed = 1
+[3af66e] TransportState = NO_MEDIA_PRESENT
+[3af66e] TransportStatus = OK
+[3af66e] X_NUVO_ExtraInfo = 
+[3af66e] X_NUVO_Info = 
+[3af66e] X_NUVO_MatchingAVTransportURIs = []
+subscribed [cb85d0] Gym / Zone
+[de3d7f] Loudness = FALSE
+[de3d7f] Mute = FALSE
+[de3d7f] Volume = 16
+[de3d7f] VolumeDB = -14424
+subscribed [c54a45] Gym / AVTransport
+subscribed [d0af9e] Gym / RenderingControl
+[cb85d0] APIVersion = {"userTapAction":{"min":0,"max":1},"api":{"min":15,"max":15},"wifiThirdParty":{"min":0,"max":1}}
+[cb85d0] Active = 1
+[cb85d0] AudioInput = player
+[cb85d0] CompatibleDevices = pcDevBuild,dev_board,p100,p200,p300,p400,p500,p3100,p3500,p4300,p600,p5050,p5100,p5200,au7001,au7002
+[cb85d0] Connecting = 0
+[cb85d0] FirmwareVersion = 2025.0
+[cb85d0] HttpPort = 80
+[cb85d0] Icon = skin:iconZoneGym
+[cb85d0] Language = en-US
+[cb85d0] MasterGroup = {"id":"","sortKey":"00000001794875608988"}
+[cb85d0] MemberGroup = {"id":"","sortKey":"00000001794875608991"}
+[cb85d0] MemberID = memberId-0025ed1dfe12
+[cb85d0] Model = p4300
+[cb85d0] PowerState = active
+[cb85d0] SystemID = nuvoCSRJnoZYu81NO7dz
+[cb85d0] Title = Gym
+[cb85d0] UpdateState = {"title":"","version":"","id":"none"}
+[cb85d0] UpdateURL = http://10.0.0.207:80/firmwareupdate.fcgi
+[cb85d0] WirelessSupported = 0
+[c54a45] AVTransportURI = 
+[c54a45] AVTransportURIMetaData = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[c54a45] CurrentMediaDuration = NOT_IMPLEMENTED
+[c54a45] CurrentPlayMode = NORMAL
+[c54a45] CurrentRecordQualityMode = NOT_IMPLEMENTED
+[c54a45] CurrentTrack = 0
+[c54a45] CurrentTrackDuration = NOT_IMPLEMENTED
+[c54a45] CurrentTrackMetaData = 
+[c54a45] CurrentTrackURI = 
+[c54a45] CurrentTransportActions = 
+[c54a45] NextAVTransportURI = 
+[c54a45] NextAVTransportURIMetaData = 
+[c54a45] NumberOfTracks = 0
+[c54a45] PlaybackStorageMedium = UNKNOWN
+[c54a45] PossiblePlaybackStorageMedia = UNKNOWN
+[c54a45] PossibleRecordQualityModes = NOT_IMPLEMENTED
+[c54a45] PossibleRecordStorageMedia = NOT_IMPLEMENTED
+[c54a45] RecordMediumWriteStatus = NOT_IMPLEMENTED
+[c54a45] RecordStorageMedium = NOT_IMPLEMENTED
+[c54a45] TransportPlaySpeed = 1
+[c54a45] TransportState = NO_MEDIA_PRESENT
+[c54a45] TransportStatus = OK
+[c54a45] X_NUVO_ExtraInfo = 
+[c54a45] X_NUVO_Info = 
+[c54a45] X_NUVO_MatchingAVTransportURIs = []
+[d0af9e] Loudness = FALSE
+[d0af9e] Mute = FALSE
+[d0af9e] Volume = 9
+[d0af9e] VolumeDB = -16458
+subscribed [b79d14] Sound Bar / Zone
+subscribed [98b315] Sound Bar / AVTransport
+[b79d14] APIVersion = {"userTapAction":{"min":0,"max":1},"api":{"min":15,"max":15},"wifiThirdParty":{"min":0,"max":1}}
+[b79d14] Active = 1
+[b79d14] AudioInput = player
+[b79d14] CompatibleDevices = pcDevBuild,dev_board,p100,p200,p300,p400,p500,p3100,p3500,p4300,p600,p5050,p5100,p5200,au7001,au7002
+[b79d14] Connecting = 0
+[b79d14] FirmwareVersion = 2025.0
+[b79d14] HttpPort = 80
+[b79d14] Icon = skin:iconSoundbarPlayer
+[b79d14] Language = en-US
+[b79d14] MasterGroup = {"id":"","sortKey":"00000001794873687481"}
+[b79d14] MemberGroup = {"id":"","sortKey":"00000001794873667153"}
+[b79d14] MemberID = memberId-0025ed1e2a55
+[b79d14] Model = p500
+[b79d14] PowerState = standby
+[b79d14] SystemID = nuvoCSRJnoZYu81NO7dz
+[b79d14] Title = Sound Bar
+[b79d14] UpdateState = {"title":"","version":"","id":"none"}
+[b79d14] UpdateURL = http://10.0.0.91:80/firmwareupdate.fcgi
+[b79d14] WirelessSupported = 1
+subscribed [02d076] Sound Bar / RenderingControl
+Listening on port 50756 for 120 s. Change volume or source to see events.
+[98b315] AVTransportURI = 
+[98b315] AVTransportURIMetaData = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[98b315] CurrentMediaDuration = NOT_IMPLEMENTED
+[98b315] CurrentPlayMode = NORMAL
+[98b315] CurrentRecordQualityMode = NOT_IMPLEMENTED
+[98b315] CurrentTrack = 0
+[98b315] CurrentTrackDuration = NOT_IMPLEMENTED
+[98b315] CurrentTrackMetaData = 
+[98b315] CurrentTrackURI = 
+[98b315] CurrentTransportActions = 
+[98b315] NextAVTransportURI = 
+[98b315] NextAVTransportURIMetaData = 
+[98b315] NumberOfTracks = 0
+[98b315] PlaybackStorageMedium = UNKNOWN
+[98b315] PossiblePlaybackStorageMedia = UNKNOWN
+[98b315] PossibleRecordQualityModes = NOT_IMPLEMENTED
+[98b315] PossibleRecordStorageMedia = NOT_IMPLEMENTED
+[98b315] RecordMediumWriteStatus = NOT_IMPLEMENTED
+[98b315] RecordStorageMedium = NOT_IMPLEMENTED
+[98b315] TransportPlaySpeed = 1
+[98b315] TransportState = NO_MEDIA_PRESENT
+[98b315] TransportStatus = OK
+[98b315] X_NUVO_Context = 
+[98b315] X_NUVO_ExtraInfo = 
+[98b315] X_NUVO_Info = 
+[98b315] X_NUVO_MatchingAVTransportURIs = []
+[98b315] X_NUVO_Rating = 
+[02d076] Loudness = FALSE
+[02d076] Mute = FALSE
+[02d076] Volume = 11
+[02d076] VolumeDB = -16128
+[3af66e] AVTransportURI = nuvo:siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&assetType=channel&channelId=8206&showGUID=&channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&actions=a
+[3af66e] AVTransportURIMetaData = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[3af66e] CurrentTransportActions = Play,Stop
+[3af66e] TransportState = TRANSITIONING
+[3af66e] X_NUVO_Info = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[3af66e] CurrentTrackMetaData = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[3af66e] CurrentTrackURI = nuvo:siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&assetType=channel&channelId=8206&showGUID=&channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&actions=a
+[3af66e] CurrentTrackMetaData = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[3af66e] X_NUVO_Info = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[3af66e] TransportState = PLAYING
+[3af66e] X_NUVO_Context = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[de3d7f] Volume = 24
+[de3d7f] VolumeDB = -12234
+[de3d7f] Volume = 31
+[de3d7f] VolumeDB = -10432
+[de3d7f] Volume = 28
+[de3d7f] VolumeDB = -11204
+[de3d7f] Volume = 26
+[de3d7f] VolumeDB = -11719
+[de3d7f] Volume = 40
+[de3d7f] VolumeDB = -8500
+[de3d7f] Volume = 22
+[de3d7f] VolumeDB = -12750
+[de3d7f] Volume = 21
+[de3d7f] VolumeDB = -13007
+[3af66e] TransportState = STOPPED
+[3af66e] X_NUVO_Info = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[3af66e] CurrentTrackMetaData = 
+[3af66e] CurrentTrackURI = 
+[3af66e] TransportState = TRANSITIONING
+[3af66e] X_NUVO_Context = 
+[3af66e] X_NUVO_Info = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[3af66e] CurrentTrackMetaData = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[3af66e] CurrentTrackURI = nuvo:siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&assetType=channel&channelId=8206&showGUID=&channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&actions=a
+[3af66e] CurrentTrackMetaData = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/
+[3af66e] X_NUVO_Info = 
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp

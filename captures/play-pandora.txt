@@ -1,0 +1,6 @@
+Building for debugging...
+Build complete! (0.15 sec)
+folder: Pandora (pandora:StationList), described by the player
+playing row 11 "90s Pop Radio" on Family Room (Family Room volume 14)
+transport PLAYING   actions [Next,Pause,Play,Stop,X_NUVO_Dislike,X_NUVO_Like]
+now playing: Doin' Time | Sublime (10th Anniversary Edition / Deluxe Edition) - Sublime

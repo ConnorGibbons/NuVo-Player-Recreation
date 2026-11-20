@@ -1,0 +1,107 @@
+Building for debugging...
+Build complete! (0.15 sec)
+http://10.0.0.197:43676/00000000-0000-0000-0000-0025ed1dfe08.xml
+    address     10.0.0.197, description port 43676
+    server      Linux/2.6.37 UPnP/1.0 GUPnP/0.20.8
+    name        Family Room
+    model       p4300, firmware 2025.0
+    zone id     memberId-0025ed1dfe08
+    system id   nuvoCSRJnoZYu81NO7dz
+    udn         uuid:00000000-0000-0000-0000-0025ed1dfe08
+    upnp name   NuVo Zone 00:25:ed:1d:fe:08
+    services
+        Zone                /ZoneService/control
+        AVTransport         /AVTransport/control
+        ConnectionManager   /ConnectionManager-MR/control
+        RenderingControl    /RenderingControl/control
+        ConnectionManager   /ConnectionManager-MS/control
+        ContentDirectory    /ContentDirectory/control
+
+http://10.0.0.207:37725/00000000-0000-0000-0000-0025ed1dfe12.xml
+    address     10.0.0.207, description port 37725
+    server      Linux/2.6.37 UPnP/1.0 GUPnP/0.20.8
+    name        Gym
+    model       p4300, firmware 2025.0
+    zone id     memberId-0025ed1dfe12
+    system id   nuvoCSRJnoZYu81NO7dz
+    udn         uuid:00000000-0000-0000-0000-0025ed1dfe12
+    upnp name   NuVo Zone 00:25:ed:1d:fe:12
+    services
+        Zone                /ZoneService/control
+        AVTransport         /AVTransport/control
+        ConnectionManager   /ConnectionManager-MR/control
+        RenderingControl    /RenderingControl/control
+        ConnectionManager   /ConnectionManager-MS/control
+        ContentDirectory    /ContentDirectory/control
+
+http://10.0.0.91:44242/00000000-0000-0000-0000-0025ed1e2a55.xml
+    address     10.0.0.91, description port 44242
+    server      Linux/2.6.37 UPnP/1.0 GUPnP/0.20.8
+    name        Sound Bar
+    model       p500, firmware 2025.0
+    zone id     memberId-0025ed1e2a55
+    system id   nuvoCSRJnoZYu81NO7dz
+    udn         uuid:00000000-0000-0000-0000-0025ed1e2a55
+    upnp name   NuVo Zone 00:25:ed:1e:2a:55
+    services
+        Zone                /ZoneService/control
+        AVTransport         /AVTransport/control
+        ConnectionManager   /ConnectionManager-MR/control
+        RenderingControl    /RenderingControl/control
+        ConnectionManager   /ConnectionManager-MS/control
+        ContentDirectory    /ContentDirectory/control
+
+http://10.0.0.109:42431/00000000-0000-0000-0000-0025ed1e013e.xml
+    address     10.0.0.109, description port 42431
+    server      Linux/2.6.37 UPnP/1.0 GUPnP/0.20.8
+    name        Bar
+    model       p4300, firmware 2025.0
+    zone id     memberId-0025ed1e013e
+    system id   nuvoCSRJnoZYu81NO7dz
+    udn         uuid:00000000-0000-0000-0000-0025ed1e013e
+    upnp name   NuVo Zone 00:25:ed:1e:01:3e
+    services
+        Zone                /ZoneService/control
+        AVTransport         /AVTransport/control
+        ConnectionManager   /ConnectionManager-MR/control
+        RenderingControl    /RenderingControl/control
+        ConnectionManager   /ConnectionManager-MS/control
+        ContentDirectory    /ContentDirectory/control
+
+Building for debugging...
+Build complete! (0.13 sec)
+Bar  [p4300, fw 2025.0]  10.0.0.109
+    id memberId-0025ed1e013e   power active   input player
+    group (none, zone is off)
+    volume 16   transport NO_MEDIA_PRESENT   actions []
+Family Room  [p4300, fw 2025.0]  10.0.0.197
+    id memberId-0025ed1dfe08   power active   input player
+    group (none, zone is off)
+    volume 16   transport NO_MEDIA_PRESENT   actions []
+Gym  [p4300, fw 2025.0]  10.0.0.207
+    id memberId-0025ed1dfe12   power active   input player
+    group (none, zone is off)
+    volume 9   transport NO_MEDIA_PRESENT   actions []
+Sound Bar  [p500, fw 2025.0]  10.0.0.91
+    id memberId-0025ed1e2a55   power standby   input player
+    group (none, zone is off)
+    volume 11   transport NO_MEDIA_PRESENT   actions []
+Building for debugging...
+Build complete! (0.14 sec)
+0 input(s) parsed from 1037 characters of DIDL, asked via Bar
+--- raw response ---
+
+<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com">
+    <item id="" parentID="lineIn:systemLineIns" restricted="1">
+        <dc:title>No devices</dc:title>
+        <upnp:class>object.item</upnp:class>
+        <x:x_nuvo_itemId>0</x:x_nuvo_itemId>
+        <x:x_nuvo_nsdk>{&quot;title&quot;:&quot;No devices&quot;,&quot;id&quot;:&quot;0&quot;,&quot;sortKey&quot;:&quot;0&quot;}</x:x_nuvo_nsdk>
+    </item>
+    <item id="" parentID="lineIn:systemLineIns" restricted="1">
+        <dc:title>Devices appear in the list when a connection is made to a Player's line input.</dc:title>
+        <upnp:class>object.item.x_nuvo_footerItem</upnp:class>
+        <x:x_nuvo_nsdk>{&quot;title&quot;:&quot;Devices appear in the list when a connection is made to a Player's line input.&quot;,&quot;type&quot;:&quot;footer&quot;,&quot;sortKey&quot;:&quot;2&quot;}</x:x_nuvo_nsdk>
+    </item>
+</DIDL-Lite>
+

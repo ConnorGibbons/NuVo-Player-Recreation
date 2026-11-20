@@ -1,0 +1,134 @@
+Building for debugging...
+Build complete! (0.12 sec)
+Asking Bar (p4300).
+
+== Standard Browse ==
+0                        0 row(s)
+/                        FAILED: UPnP error 501: Node at path '/' does not exist (HTTP 500)
+/stable/                 FAILED: UPnP error 501: Node at path '/stable/' does not exist (HTTP 500)
+/stable/lineIn/          2 row(s)
+      [item]   No devices
+      [item]   Devices appear in the list when a connection is made to a Player's line input. type=footer
+lineIn:systemLineIns     2 row(s)
+      [item]   No devices
+      [item]   Devices appear in the list when a connection is made to a Player's line input. type=footer
+siriusxm2:               FAILED: UPnP error 501: Node at path 'siriusxm2:' does not exist (HTTP 500)
+sirius:                  3 row(s)
+      [item]    type=spacer
+      [item]   
+      [item]   Fix it! type=action
+               id  sirius:not_configured_account/fixIt
+sxZone:                  FAILED: timed out
+tunein:                  8 row(s)
+      [folder] My Favorites type=container
+               id  tunein:browse/uri/Browse.ashx?c=presets&nsdkDisplayName=My%20Favorites
+      [folder] Local Radio type=container
+               id  tunein:browse/uri/Browse.ashx?c=local&formats=mp3,aac&partnerId=q4Wc!5W9&serial=nuvoCSRJnoZYu81NO7dz&locale=enUS&nsdkDisplayName=Local%20Radio
+      [folder] Music type=container
+               id  tunein:browse/uri/Browse.ashx?c=music&formats=mp3,aac&partnerId=q4Wc!5W9&serial=nuvoCSRJnoZYu81NO7dz&locale=enUS&nsdkDisplayName=Music
+      [folder] Talk type=container
+               id  tunein:browse/uri/Browse.ashx?c=talk&formats=mp3,aac&partnerId=q4Wc!5W9&serial=nuvoCSRJnoZYu81NO7dz&locale=enUS&nsdkDisplayName=Talk
+      [folder] Sports type=container
+               id  tunein:browse/uri/Browse.ashx?c=sports&formats=mp3,aac&partnerId=q4Wc!5W9&serial=nuvoCSRJnoZYu81NO7dz&locale=enUS&nsdkDisplayName=Sports
+      [folder] By Location type=container
+               id  tunein:browse/uri/Browse.ashx?id=r0&formats=mp3,aac&partnerId=q4Wc!5W9&serial=nuvoCSRJnoZYu81NO7dz&locale=enUS&nsdkDisplayName=By%20Location
+      [folder] By Language type=container
+               id  tunein:browse/uri/Browse.ashx?c=lang&formats=mp3,aac&partnerId=q4Wc!5W9&serial=nuvoCSRJnoZYu81NO7dz&locale=enUS&nsdkDisplayName=By%20Language
+      [folder] Podcasts type=container
+               id  tunein:browse/uri/Browse.ashx?c=podcast&formats=mp3,aac&partnerId=q4Wc!5W9&serial=nuvoCSRJnoZYu81NO7dz&locale=enUS&nsdkDisplayName=Podcasts
+pandora:                 52 row(s)
+      [folder] New Genre Station type=container
+               id  pandora:GenreStations
+      [item]   QuickMix type=audio
+               id  pandora:StationList/station_2979585217964261867
+               uri nuvo:pandora:StationList/station_2979585217964261867
+      [item]   2000s Rock Radio type=audio
+               id  pandora:StationList/station_3082640630359507435
+               uri nuvo:pandora:StationList/station_3082640630359507435
+      [item]   2008 Hits Radio type=audio
+               id  pandora:StationList/station_3310804587501568491
+               uri nuvo:pandora:StationList/station_3310804587501568491
+      [item]   2014 Hits Radio type=audio
+               id  pandora:StationList/station_3350365024458883563
+               uri nuvo:pandora:StationList/station_3350365024458883563
+      [item]   80s New Wave Radio type=audio
+               id  pandora:StationList/station_3378125635770892779
+               uri nuvo:pandora:StationList/station_3378125635770892779
+      [item]   90s Alternative  Radio type=audio
+               id  pandora:StationList/station_2988332636122104299
+               uri nuvo:pandora:StationList/station_2988332636122104299
+      [item]   90s Christmas Radio type=audio
+               id  pandora:StationList/station_3828749640212398571
+               uri nuvo:pandora:StationList/station_3828749640212398571
+      [item]   90s Dance Radio type=audio
+               id  pandora:StationList/station_3511067960347443691
+               uri nuvo:pandora:StationList/station_3511067960347443691
+      [item]   90s Hip Hop Radio type=audio
+               id  pandora:StationList/station_3511036323618341355
+               uri nuvo:pandora:StationList/station_3511036323618341355
+      [item]   90s Pop Radio type=audio
+               id  pandora:StationList/station_3511035400200372715
+               uri nuvo:pandora:StationList/station_3511035400200372715
+      [item]   90s R&B Radio type=audio
+               id  pandora:StationList/station_3511036027265597931
+               uri nuvo:pandora:StationList/station_3511036027265597931
+      [item]   90s, 2000s, Today's Hits Radio type=audio
+               id  pandora:StationList/station_3511036907733893611
+               uri nuvo:pandora:StationList/station_3511036907733893611
+      [item]   Aerosmith Radio type=audio
+               id  pandora:StationList/station_4366670551457186283
+               uri nuvo:pandora:StationList/station_4366670551457186283
+      [item]   Beastie Boys Radio type=audio
+               id  pandora:StationList/station_2979605477324997099
+               uri nuvo:pandora:StationList/station_2979605477324997099
+      ... and 37 more
+spotify:                 4 row(s)
+      [item]   Open Spotify App
+      [item]   Stream Music Using Spotify Connect
+      [item]   
+      [item]   Learn More type=www
+               uri https://www.spotify.com/connect/
+iheart:                  FAILED: timed out
+rhapsody:                FAILED: timed out
+napster:                 3 row(s)
+      [item]    type=spacer
+      [item]   
+      [item]   Fix it! type=action
+               id  napster:ui-const/accountNotConfigured/fixIt
+deezer:                  3 row(s)
+      [item]    type=spacer
+      [item]   
+      [item]   Fix It! type=action
+               id  deezer:not_configured_account_text
+amazon:                  FAILED: timed out
+alexa:                   1 row(s)
+      [item]   Amazon Alexa
+top10:                   FAILED: UPnP error 501: Node at path 'top10:' does not exist (HTTP 500)
+favorites:               FAILED: timed out
+presets:                 FAILED: timed out
+playHistory:             FAILED: timed out
+usb:                     FAILED: timed out
+library:                 FAILED: timed out
+bluetooth:               FAILED: UPnP error 501: Node at path 'bluetooth:' does not exist (HTTP 500)
+airplay2:                FAILED: timed out
+testStreams:             FAILED: timed out
+ui:                      FAILED: timed out
+nuvo:                    FAILED: timed out
+
+== X_NUVO_Browse ==
+0                        0 row(s), TotalMatches 0
+      properties: <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com">
+    <container id="0" parentID="0" restricted="1">
+        <dc:title></dc:title>
+        <upnp:class>object.container</upnp:class>
+        <x:x_nuvo_nsdk>{&quot;containerType&quot;:&quot;none&quot;,&quot;path&quot;:&quot;0&quot;,&quot;type&quot;:&quot;container&quot;,&quot;align&quot;:&quot;left&quot;}</x:x_nuvo_nsdk>
+    </container>
+</DIDL-Lite>
+(empty)                  FAILED: UPnP error 501: Node at path '' does not exist (HTTP 500)
+/                        FAILED: UPnP error 501: Node at path '/' does not exist (HTTP 500)
+/stable/                 FAILED: UPnP error 501: Node at path '/stable/' does not exist (HTTP 500)
+ui:                      FAILED: timed out
+nuvo:                    FAILED: timed out
+siriusxm2:               FAILED: UPnP error 501: Node at path 'siriusxm2:' does not exist (HTTP 500)
+favorites:               FAILED: timed out
+presets:                 FAILED: timed out

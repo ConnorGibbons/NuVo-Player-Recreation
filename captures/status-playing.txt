@@ -1,0 +1,32 @@
+Building for debugging...
+[1 / 7]
+[2 / 6] nuvoctl-product
+[12 / 46]
+[20 / 46]
+[22 / 46]
+[27 / 46]
+[32 / 46]
+[36 / 46]
+[38 / 46]
+[39 / 46]
+[42 / 46] nuvoctl-product
+[43 / 46] nuvoctl-product
+[45 / 46] nuvoctl-product
+Build complete! (2.14 sec)
+Bar  [p4300, fw 2025.0]  10.0.0.109
+    id memberId-0025ed1e013e   power active   input player
+    group (none, zone is off)
+    volume 16   transport NO_MEDIA_PRESENT   actions []
+Family Room  [p4300, fw 2025.0]  10.0.0.197
+    id memberId-0025ed1dfe08   power active   input player
+    group gidO1p1DFsnw9h8p9YL  (master)
+    volume 20   transport PLAYING   actions [Play,Stop]
+    playing: Ch 9 - 90s on 9 by siriusxm2 (Slide (98))
+Gym  [p4300, fw 2025.0]  10.0.0.207
+    id memberId-0025ed1dfe12   power active   input player
+    group (none, zone is off)
+    volume 9   transport NO_MEDIA_PRESENT   actions []
+Sound Bar  [p500, fw 2025.0]  10.0.0.91
+    id memberId-0025ed1e2a55   power active   input player
+    group gidO1p1DFsnw9h8p9YL
+    volume 10   transport NO_MEDIA_PRESENT   actions []

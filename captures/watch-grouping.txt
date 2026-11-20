@@ -1,0 +1,335 @@
+Building for debugging...
+Build complete! (0.13 sec)
+subscribed [d16483] Bar / Zone
+subscribed [c77919] Bar / AVTransport
+[d16483] APIVersion = {"userTapAction":{"min":0,"max":1},"api":{"min":15,"max":15},"wifiThirdParty":{"min":0,"max":1}}
+[d16483] Active = 1
+[d16483] AudioInput = player
+[d16483] CompatibleDevices = pcDevBuild,dev_board,p100,p200,p300,p400,p500,p3100,p3500,p4300,p600,p5050,p5100,p5200,au7001,au7002
+[d16483] Connecting = 0
+[d16483] FirmwareVersion = 2025.0
+[d16483] HttpPort = 80
+[d16483] Icon = skin:iconZoneBar
+[d16483] Language = en-US
+[d16483] MasterGroup = {"id":"gidHdQ2MQ6WqpKtML9h","sortKey":"00000001794877203370"}
+[d16483] MemberGroup = {"id":"","sortKey":"00000001794873808668"}
+[d16483] MemberID = memberId-0025ed1e013e
+[d16483] Model = p4300
+[d16483] PowerState = active
+[d16483] SystemID = nuvoCSRJnoZYu81NO7dz
+[d16483] Title = Bar
+[d16483] UpdateState = {"title":"","version":"","id":"none"}
+[d16483] UpdateURL = http://10.0.0.109:80/firmwareupdate.fcgi
+[d16483] WirelessSupported = 0
+subscribed [3d5ff2] Bar / RenderingControl
+[c77919] AVTransportURI = 
+[c77919] AVTransportURIMetaData = <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com"/>
+[c77919] CurrentMediaDuration = NOT_IMPLEMENTED
+[c77919] CurrentPlayMode = NORMAL
+[c77919] CurrentRecordQualityMode = NOT_IMPLEMENTED
+[c77919] CurrentTrack = 0
+[c77919] CurrentTrackDuration = NOT_IMPLEMENTED
+[c77919] CurrentTrackMetaData = 
+[c77919] CurrentTrackURI = 
+[c77919] CurrentTransportActions = 
+[c77919] NextAVTransportURI = 
+[c77919] NextAVTransportURIMetaData = 
+[c77919] NumberOfTracks = 0
+[c77919] PlaybackStorageMedium = UNKNOWN
+[c77919] PossiblePlaybackStorageMedia = UNKNOWN
+[c77919] PossibleRecordQualityModes = NOT_IMPLEMENTED
+[c77919] PossibleRecordStorageMedia = NOT_IMPLEMENTED
+[c77919] RecordMediumWriteStatus = NOT_IMPLEMENTED
+[c77919] RecordStorageMedium = NOT_IMPLEMENTED
+[c77919] TransportPlaySpeed = 1
+[c77919] TransportState = NO_MEDIA_PRESENT
+[c77919] TransportStatus = OK
+[c77919] X_NUVO_ExtraInfo = 
+[c77919] X_NUVO_Info = 
+[c77919] X_NUVO_MatchingAVTransportURIs = []
+[3d5ff2] Loudness = FALSE
+[3d5ff2] Mute = FALSE
+[3d5ff2] Volume = 16
+[3d5ff2] VolumeDB = -13986
+subscribed [8c2d44] Family Room / Zone
+subscribed [517afb] Family Room / AVTransport
+subscribed [8d201a] Family Room / RenderingControl
+subscribed [28738b] Gym / Zone
+[8c2d44] APIVersion = {"userTapAction":{"min":0,"max":1},"api":{"min":15,"max":15},"wifiThirdParty":{"min":0,"max":1}}
+[8c2d44] Active = 1
+[8c2d44] AudioInput = player
+[8c2d44] CompatibleDevices = pcDevBuild,dev_board,p100,p200,p300,p400,p500,p3100,p3500,p4300,p600,p5050,p5100,p5200,au7001,au7002
+[8c2d44] Connecting = 0
+[8c2d44] FirmwareVersion = 2025.0
+[8c2d44] HttpPort = 80
+[8c2d44] Icon = skin:iconZoneFamilyRoom
+[8c2d44] Language = en-US
+[8c2d44] MasterGroup = {"id":"gidO1p1DFsnw9h8p9YL","sortKey":"00000001794876908993"}
+[8c2d44] MemberGroup = {"id":"gidO1p1DFsnw9h8p9YL","sortKey":"00000001794876909021"}
+[8c2d44] MemberID = memberId-0025ed1dfe08
+[8c2d44] Model = p4300
+[8c2d44] PowerState = active
+[8c2d44] SystemID = nuvoCSRJnoZYu81NO7dz
+[8c2d44] Title = Family Room
+[8c2d44] UpdateState = {"title":"","version":"","id":"none"}
+[8c2d44] UpdateURL = http://10.0.0.197:80/firmwareupdate.fcgi
+[8c2d44] WirelessSupported = 0
+subscribed [f9c10e] Gym / AVTransport
+[28738b] APIVersion = {"userTapAction":{"min":0,"max":1},"api":{"min":15,"max":15},"wifiThirdParty":{"min":0,"max":1}}
+[28738b] Active = 1
+[28738b] AudioInput = player
+[28738b] CompatibleDevices = pcDevBuild,dev_board,p100,p200,p300,p400,p500,p3100,p3500,p4300,p600,p5050,p5100,p5200,au7001,au7002
+[28738b] Connecting = 0
+[28738b] FirmwareVersion = 2025.0
+[28738b] HttpPort = 80
+[28738b] Icon = skin:iconZoneGym
+[28738b] Language = en-US
+[28738b] MasterGroup = {"id":"giddQRz1bOCZHn2jYOL","sortKey":"00000001794877200533"}
+[28738b] MemberGroup = {"id":"","sortKey":"00000001794875608991"}
+[28738b] MemberID = memberId-0025ed1dfe12
+[28738b] Model = p4300
+[28738b] PowerState = active
+[28738b] SystemID = nuvoCSRJnoZYu81NO7dz
+[28738b] Title = Gym
+[28738b] UpdateState = {"title":"","version":"","id":"none"}
+[28738b] UpdateURL = http://10.0.0.207:80/firmwareupdate.fcgi
+[28738b] WirelessSupported = 0
+subscribed [c8defd] Gym / RenderingControl
+[f9c10e] AVTransportURI = 
+[f9c10e] AVTransportURIMetaData = <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com"/>
+[f9c10e] CurrentMediaDuration = NOT_IMPLEMENTED
+[f9c10e] CurrentPlayMode = NORMAL
+[f9c10e] CurrentRecordQualityMode = NOT_IMPLEMENTED
+[f9c10e] CurrentTrack = 0
+[f9c10e] CurrentTrackDuration = NOT_IMPLEMENTED
+[f9c10e] CurrentTrackMetaData = 
+[f9c10e] CurrentTrackURI = 
+[f9c10e] CurrentTransportActions = 
+[f9c10e] NextAVTransportURI = 
+[f9c10e] NextAVTransportURIMetaData = 
+[f9c10e] NumberOfTracks = 0
+[f9c10e] PlaybackStorageMedium = UNKNOWN
+[f9c10e] PossiblePlaybackStorageMedia = UNKNOWN
+[f9c10e] PossibleRecordQualityModes = NOT_IMPLEMENTED
+[f9c10e] PossibleRecordStorageMedia = NOT_IMPLEMENTED
+[f9c10e] RecordMediumWriteStatus = NOT_IMPLEMENTED
+[f9c10e] RecordStorageMedium = NOT_IMPLEMENTED
+[f9c10e] TransportPlaySpeed = 1
+[f9c10e] TransportState = NO_MEDIA_PRESENT
+[f9c10e] TransportStatus = OK
+[f9c10e] X_NUVO_ExtraInfo = 
+[f9c10e] X_NUVO_Info = 
+[f9c10e] X_NUVO_MatchingAVTransportURIs = []
+[517afb] AVTransportURI = nuvo:siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&assetType=channel&channelId=8206&showGUID=&channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&actions=addFav
+[517afb] AVTransportURIMetaData = <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com">
+    <item id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav" restricted="1">
+        <dc:title>Ch 9 - 90s on 9</dc:title>
+        <res protocolInfo="nuvo:*:*:*">nuvo:siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav</res>
+        <upnp:class>object.item.audioItem.audioBroadcast</upnp:class>
+        <upnp:icon>http://pri.art.prod.streaming.siriusxm.com/images/chan/fb/3d7baa-395d-89b0-c573-9a0854a2eda9.png</upnp:icon>
+        <x:x_nuvo_context id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1" restricted="1">
+            <dc:title></dc:title>
+            <upnp:class>object.item</upnp:class>
+            <x:x_nuvo_nsdk>{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}</x:x_nuvo_nsdk>
+        </x:x_nuvo_context>
+        <x:x_nuvo_nsdk>{&quot;mediaData&quot;:{&quot;metaData&quot;:{&quot;playLogicPath&quot;:&quot;siriusxm2:playback/playLogic&quot;}},&quot;title&quot;:&quot;Ch 9 - 90s on 9&quot;,&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav&quot;,&quot;icon&quot;:&quot;http://pri.art.prod.streaming.siriusxm.com/images/chan/fb/3d7baa-395d-89b0-c573-9a0854a2eda9.png&quot;,&quot;type&quot;:&quot;audio&quot;,&quot;audioType&quot;:&quot;audioBroadcast&quot;,&quot;context&quot;:{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}}</x:x_nuvo_nsdk>
+    </item>
+</DIDL-Lite>
+[517afb] CurrentMediaDuration = NOT_IMPLEMENTED
+[517afb] CurrentPlayMode = NORMAL
+[517afb] CurrentRecordQualityMode = NOT_IMPLEMENTED
+[517afb] CurrentTrack = 0
+[517afb] CurrentTrackDuration = NOT_IMPLEMENTED
+[517afb] CurrentTrackMetaData = <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com">
+    <item id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav" restricted="1">
+        <dc:title>Ch 9 - 90s on 9</dc:title>
+        <dc:creator>siriusxm2</dc:creator>
+        <upnp:class>object.item</upnp:class>
+        <dc:description>Slide (98)</dc:description>
+        <upnp:longDescription>Goo Goo Dolls - Dizzy Up the Girl</upnp:longDescription>
+        <upnp:icon>http://albumart.siriusxm.com/albumart/0030/WBNINE_DDCA-000258766-001_m.jpg</upnp:icon>
+        <x:x_nuvo_context id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1" restricted="1">
+            <dc:title></dc:title>
+            <upnp:class>object.item</upnp:class>
+            <x:x_nuvo_nsdk>{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}</x:x_nuvo_nsdk>
+        </x:x_nuvo_context>
+        <x:x_nuvo_nsdk>{&quot;mediaData&quot;:{&quot;metaData&quot;:{&quot;serviceID&quot;:&quot;siriusxm2&quot;}},&quot;title&quot;:&quot;Ch 9 - 90s on 9&quot;,&quot;longDescription&quot;:&quot;Goo Goo Dolls - Dizzy Up the Girl&quot;,&quot;description&quot;:&quot;Slide (98)&quot;,&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav&quot;,&quot;icon&quot;:&quot;http://albumart.siriusxm.com/albumart/0030/WBNINE_DDCA-000258766-001_m.jpg&quot;,&quot;audioType&quot;:&quot;audioBroadcast&quot;,&quot;context&quot;:{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}}</x:x_nuvo_nsdk>
+    </item>
+</DIDL-Lite>
+[517afb] CurrentTrackURI = nuvo:siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&assetType=channel&channelId=8206&showGUID=&channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&actions=addFav
+[517afb] CurrentTransportActions = Play,Stop
+[517afb] NextAVTransportURI = 
+[517afb] NextAVTransportURIMetaData = 
+[517afb] NumberOfTracks = 0
+[517afb] PlaybackStorageMedium = UNKNOWN
+[517afb] PossiblePlaybackStorageMedia = UNKNOWN
+[517afb] PossibleRecordQualityModes = NOT_IMPLEMENTED
+[517afb] PossibleRecordStorageMedia = NOT_IMPLEMENTED
+[517afb] RecordMediumWriteStatus = NOT_IMPLEMENTED
+[517afb] RecordStorageMedium = NOT_IMPLEMENTED
+[517afb] TransportPlaySpeed = 1
+[517afb] TransportState = PLAYING
+[517afb] TransportStatus = OK
+[517afb] X_NUVO_Context = <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com">
+    <container id="siriusxm2:playerMenu" restricted="1">
+        <dc:title></dc:title>
+        <upnp:class>object.container.x_nuvo_contextContainer</upnp:class>
+        <x:x_nuvo_nsdk>{&quot;containerType&quot;:&quot;context&quot;,&quot;path&quot;:&quot;siriusxm2:playerMenu&quot;,&quot;type&quot;:&quot;container&quot;}</x:x_nuvo_nsdk>
+    </container>
+</DIDL-Lite>
+[517afb] X_NUVO_ExtraInfo = 
+[517afb] X_NUVO_Info = <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com">
+    <item id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav" restricted="1">
+        <dc:title>Ch 9 - 90s on 9</dc:title>
+        <dc:creator>siriusxm2</dc:creator>
+        <upnp:class>object.item</upnp:class>
+        <dc:description>Slide (98)</dc:description>
+        <upnp:longDescription>Goo Goo Dolls - Dizzy Up the Girl</upnp:longDescription>
+        <upnp:icon>http://albumart.siriusxm.com/albumart/0030/WBNINE_DDCA-000258766-001_m.jpg</upnp:icon>
+        <x:x_nuvo_context id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1" restricted="1">
+            <dc:title></dc:title>
+            <upnp:class>object.item</upnp:class>
+            <x:x_nuvo_nsdk>{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}</x:x_nuvo_nsdk>
+        </x:x_nuvo_context>
+        <x:x_nuvo_nsdk>{&quot;mediaData&quot;:{&quot;metaData&quot;:{&quot;serviceID&quot;:&quot;siriusxm2&quot;}},&quot;title&quot;:&quot;Ch 9 - 90s on 9&quot;,&quot;longDescription&quot;:&quot;Goo Goo Dolls - Dizzy Up the Girl&quot;,&quot;description&quot;:&quot;Slide (98)&quot;,&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav&quot;,&quot;icon&quot;:&quot;http://albumart.siriusxm.com/albumart/0030/WBNINE_DDCA-000258766-001_m.jpg&quot;,&quot;audioType&quot;:&quot;audioBroadcast&quot;,&quot;context&quot;:{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}}</x:x_nuvo_nsdk>
+    </item>
+</DIDL-Lite>
+[517afb] X_NUVO_MatchingAVTransportURIs = []
+[c8defd] Loudness = FALSE
+[c8defd] Mute = FALSE
+[c8defd] Volume = 9
+[c8defd] VolumeDB = -16458
+[8d201a] Loudness = FALSE
+[8d201a] Mute = FALSE
+[8d201a] Volume = 20
+[8d201a] VolumeDB = -13265
+subscribed [9d643c] Sound Bar / Zone
+subscribed [9b7bf7] Sound Bar / AVTransport
+[9d643c] APIVersion = {"userTapAction":{"min":0,"max":1},"api":{"min":15,"max":15},"wifiThirdParty":{"min":0,"max":1}}
+[9d643c] Active = 1
+[9d643c] AudioInput = player
+[9d643c] CompatibleDevices = pcDevBuild,dev_board,p100,p200,p300,p400,p500,p3100,p3500,p4300,p600,p5050,p5100,p5200,au7001,au7002
+[9d643c] Connecting = 0
+[9d643c] FirmwareVersion = 2025.0
+[9d643c] HttpPort = 80
+[9d643c] Icon = skin:iconSoundbarPlayer
+[9d643c] Language = en-US
+[9d643c] MasterGroup = {"id":"","sortKey":"00000001794873687481"}
+[9d643c] MemberGroup = {"id":"gidO1p1DFsnw9h8p9YL","sortKey":"00000001794877205553"}
+[9d643c] MemberID = memberId-0025ed1e2a55
+[9d643c] Model = p500
+[9d643c] PowerState = active
+[9d643c] SystemID = nuvoCSRJnoZYu81NO7dz
+[9d643c] Title = Sound Bar
+[9d643c] UpdateState = {"title":"","version":"","id":"none"}
+[9d643c] UpdateURL = http://10.0.0.91:80/firmwareupdate.fcgi
+[9d643c] WirelessSupported = 1
+subscribed [e9702e] Sound Bar / RenderingControl
+Listening on port 50758 for 60 s. Change volume or source to see events.
+[9b7bf7] AVTransportURI = 
+[9b7bf7] AVTransportURIMetaData = <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com"/>
+[9b7bf7] CurrentMediaDuration = NOT_IMPLEMENTED
+[9b7bf7] CurrentPlayMode = NORMAL
+[9b7bf7] CurrentRecordQualityMode = NOT_IMPLEMENTED
+[9b7bf7] CurrentTrack = 0
+[9b7bf7] CurrentTrackDuration = NOT_IMPLEMENTED
+[9b7bf7] CurrentTrackMetaData = 
+[9b7bf7] CurrentTrackURI = 
+[9b7bf7] CurrentTransportActions = 
+[9b7bf7] NextAVTransportURI = 
+[9b7bf7] NextAVTransportURIMetaData = 
+[9b7bf7] NumberOfTracks = 0
+[9b7bf7] PlaybackStorageMedium = UNKNOWN
+[9b7bf7] PossiblePlaybackStorageMedia = UNKNOWN
+[9b7bf7] PossibleRecordQualityModes = NOT_IMPLEMENTED
+[9b7bf7] PossibleRecordStorageMedia = NOT_IMPLEMENTED
+[9b7bf7] RecordMediumWriteStatus = NOT_IMPLEMENTED
+[9b7bf7] RecordStorageMedium = NOT_IMPLEMENTED
+[9b7bf7] TransportPlaySpeed = 1
+[9b7bf7] TransportState = NO_MEDIA_PRESENT
+[9b7bf7] TransportStatus = OK
+[9b7bf7] X_NUVO_Context = 
+[9b7bf7] X_NUVO_ExtraInfo = 
+[9b7bf7] X_NUVO_Info = 
+[9b7bf7] X_NUVO_MatchingAVTransportURIs = []
+[9b7bf7] X_NUVO_Rating = 
+[e9702e] Loudness = FALSE
+[e9702e] Mute = FALSE
+[e9702e] Volume = 10
+[e9702e] VolumeDB = -16512
+[517afb] TransportState = STOPPED
+[517afb] X_NUVO_Info = <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com">
+    <item id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav" restricted="1">
+        <dc:title>Ch 9 - 90s on 9</dc:title>
+        <dc:creator>siriusxm2</dc:creator>
+        <upnp:class>object.item</upnp:class>
+        <upnp:icon>http://pri.art.prod.streaming.siriusxm.com/images/chan/fb/3d7baa-395d-89b0-c573-9a0854a2eda9.png</upnp:icon>
+        <x:x_nuvo_context id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1" restricted="1">
+            <dc:title></dc:title>
+            <upnp:class>object.item</upnp:class>
+            <x:x_nuvo_nsdk>{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}</x:x_nuvo_nsdk>
+        </x:x_nuvo_context>
+        <x:x_nuvo_nsdk>{&quot;mediaData&quot;:{&quot;metaData&quot;:{&quot;serviceID&quot;:&quot;siriusxm2&quot;}},&quot;title&quot;:&quot;Ch 9 - 90s on 9&quot;,&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav&quot;,&quot;icon&quot;:&quot;http://pri.art.prod.streaming.siriusxm.com/images/chan/fb/3d7baa-395d-89b0-c573-9a0854a2eda9.png&quot;,&quot;audioType&quot;:&quot;audioBroadcast&quot;,&quot;context&quot;:{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}}</x:x_nuvo_nsdk>
+    </item>
+</DIDL-Lite>
+[517afb] CurrentTrackMetaData = 
+[517afb] CurrentTrackURI = 
+[517afb] TransportState = TRANSITIONING
+[517afb] X_NUVO_Context = 
+[517afb] X_NUVO_Info = <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com">
+    <item id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav" restricted="1">
+        <dc:title>Ch 9 - 90s on 9</dc:title>
+        <upnp:class>object.item</upnp:class>
+        <upnp:icon>http://pri.art.prod.streaming.siriusxm.com/images/chan/fb/3d7baa-395d-89b0-c573-9a0854a2eda9.png</upnp:icon>
+        <x:x_nuvo_context id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1" restricted="1">
+            <dc:title></dc:title>
+            <upnp:class>object.item</upnp:class>
+            <x:x_nuvo_nsdk>{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}</x:x_nuvo_nsdk>
+        </x:x_nuvo_context>
+        <x:x_nuvo_nsdk>{&quot;mediaData&quot;:{&quot;metaData&quot;:{&quot;playLogicPath&quot;:&quot;siriusxm2:playback/playLogic&quot;}},&quot;title&quot;:&quot;Ch 9 - 90s on 9&quot;,&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav&quot;,&quot;icon&quot;:&quot;http://pri.art.prod.streaming.siriusxm.com/images/chan/fb/3d7baa-395d-89b0-c573-9a0854a2eda9.png&quot;,&quot;audioType&quot;:&quot;audioBroadcast&quot;,&quot;context&quot;:{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}}</x:x_nuvo_nsdk>
+    </item>
+</DIDL-Lite>
+[517afb] CurrentTrackMetaData = <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com">
+    <item id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav" restricted="1">
+        <dc:title>Ch 9 - 90s on 9</dc:title>
+        <upnp:class>object.item</upnp:class>
+        <upnp:icon>http://pri.art.prod.streaming.siriusxm.com/images/chan/fb/3d7baa-395d-89b0-c573-9a0854a2eda9.png</upnp:icon>
+        <x:x_nuvo_context id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1" restricted="1">
+            <dc:title></dc:title>
+            <upnp:class>object.item</upnp:class>
+            <x:x_nuvo_nsdk>{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}</x:x_nuvo_nsdk>
+        </x:x_nuvo_context>
+        <x:x_nuvo_nsdk>{&quot;mediaData&quot;:{&quot;metaData&quot;:{&quot;playLogicPath&quot;:&quot;siriusxm2:playback/playLogic&quot;}},&quot;title&quot;:&quot;Ch 9 - 90s on 9&quot;,&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav&quot;,&quot;icon&quot;:&quot;http://pri.art.prod.streaming.siriusxm.com/images/chan/fb/3d7baa-395d-89b0-c573-9a0854a2eda9.png&quot;,&quot;audioType&quot;:&quot;audioBroadcast&quot;,&quot;context&quot;:{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}}</x:x_nuvo_nsdk>
+    </item>
+</DIDL-Lite>
+[517afb] CurrentTrackURI = nuvo:siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&assetType=channel&channelId=8206&showGUID=&channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&actions=addFav
+[517afb] CurrentTrackMetaData = <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com">
+    <item id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav" restricted="1">
+        <dc:title>Ch 9 - 90s on 9</dc:title>
+        <dc:creator>siriusxm2</dc:creator>
+        <upnp:class>object.item</upnp:class>
+        <dc:description>Slide (98)</dc:description>
+        <upnp:longDescription>Goo Goo Dolls - Dizzy Up the Girl</upnp:longDescription>
+        <upnp:icon>http://albumart.siriusxm.com/albumart/0030/WBNINE_DDCA-000258766-001_m.jpg</upnp:icon>
+        <x:x_nuvo_context id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1" restricted="1">
+            <dc:title></dc:title>
+            <upnp:class>object.item</upnp:class>
+            <x:x_nuvo_nsdk>{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}</x:x_nuvo_nsdk>
+        </x:x_nuvo_context>
+        <x:x_nuvo_nsdk>{&quot;mediaData&quot;:{&quot;metaData&quot;:{&quot;serviceID&quot;:&quot;siriusxm2&quot;}},&quot;title&quot;:&quot;Ch 9 - 90s on 9&quot;,&quot;longDescription&quot;:&quot;Goo Goo Dolls - Dizzy Up the Girl&quot;,&quot;description&quot;:&quot;Slide (98)&quot;,&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav&quot;,&quot;icon&quot;:&quot;http://albumart.siriusxm.com/albumart/0030/WBNINE_DDCA-000258766-001_m.jpg&quot;,&quot;audioType&quot;:&quot;audioBroadcast&quot;,&quot;context&quot;:{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}}</x:x_nuvo_nsdk>
+    </item>
+</DIDL-Lite>
+[517afb] X_NUVO_Info = <DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:x="urn:schemas.nuvotechnologies.com">
+    <item id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav" restricted="1">
+        <dc:title>Ch 9 - 90s on 9</dc:title>
+        <dc:creator>siriusxm2</dc:creator>
+        <upnp:class>object.item</upnp:class>
+        <dc:description>Slide (98)</dc:description>
+        <upnp:longDescription>Goo Goo Dolls - Dizzy Up the Girl</upnp:longDescription>
+        <upnp:icon>http://albumart.siriusxm.com/albumart/0030/WBNINE_DDCA-000258766-001_m.jpg</upnp:icon>
+        <x:x_nuvo_context id="siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1" restricted="1">
+            <dc:title></dc:title>
+            <upnp:class>object.item</upnp:class>
+            <x:x_nuvo_nsdk>{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}</x:x_nuvo_nsdk>
+        </x:x_nuvo_context>
+        <x:x_nuvo_nsdk>{&quot;mediaData&quot;:{&quot;metaData&quot;:{&quot;serviceID&quot;:&quot;siriusxm2&quot;}},&quot;title&quot;:&quot;Ch 9 - 90s on 9&quot;,&quot;longDescription&quot;:&quot;Goo Goo Dolls - Dizzy Up the Girl&quot;,&quot;description&quot;:&quot;Slide (98)&quot;,&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav&quot;,&quot;icon&quot;:&quot;http://albumart.siriusxm.com/albumart/0030/WBNINE_DDCA-000258766-001_m.jpg&quot;,&quot;audioType&quot;:&quot;audioBroadcast&quot;,&quot;context&quot;:{&quot;path&quot;:&quot;siriusxm2:ui/carousel?primary=Api:tune:liveAudio:8206&amp;assetType=channel&amp;channelId=8206&amp;showGUID=&amp;channelGUID=c9256031-1123-f35f-4d49-1ba4d5379258&amp;actions=addFav?hasMenuMAGIC=1&quot;}}</x

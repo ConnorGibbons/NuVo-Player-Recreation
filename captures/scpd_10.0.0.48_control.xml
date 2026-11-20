@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+<specVersion>
+<major>1</major>
+<minor>0</minor>
+</specVersion>
+<actionList>
+<action>
+<name>StartWpsPbc</name>
+</action>
+<action>
+<name>GetSystemId</name>
+<argumentList>
+<argument>
+<name>gatewaySystemId</name>
+<direction>out</direction>
+<relatedStateVariable>systemId</relatedStateVariable>
+</argument>
+</argumentList>
+</action>
+</actionList>
+
+<serviceStateTable>
+<stateVariable sendEvents="no">
+<name>systemId</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>accessCode</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>settings</name>
+<dataType>string</dataType>
+</stateVariable>
+</serviceStateTable>
+</scpd>
+

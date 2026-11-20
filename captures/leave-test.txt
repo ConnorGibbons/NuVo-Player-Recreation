@@ -1,0 +1,49 @@
+Building for debugging...
+[Planning deferred tasks]
+[1 / 7]
+[4 / 8] nuvoctl-product
+[5 / 8] nuvoctl-product
+[7 / 8] nuvoctl-product
+Build complete! (1.06 sec)
+Bar  [p4300, fw 2025.0]  10.0.0.109
+    id memberId-0025ed1e013e   power active   input player
+    group (none, zone is off)
+    volume 16   transport NO_MEDIA_PRESENT   actions []
+Family Room  [p4300, fw 2025.0]  10.0.0.197
+    id memberId-0025ed1dfe08   power active   input player
+    group gidHBWaPRWF1q04UsaI  (master)
+    volume 15   transport PLAYING   actions [Next,Pause,Play,Stop,X_NUVO_Dislike,X_NUVO_Like]
+    playing: All Mixed Up | 311 - 311 | artist 311  [pandora]
+Gym  [p4300, fw 2025.0]  10.0.0.207
+    id memberId-0025ed1dfe12   power active   input player
+    group (none, zone is off)
+    volume 9   transport NO_MEDIA_PRESENT   actions []
+Sound Bar  [p500, fw 2025.0]  10.0.0.91
+    id memberId-0025ed1e2a55   power active   input player
+    group gidHBWaPRWF1q04UsaI
+    volume 6   transport PLAYING   actions [Play,Stop]
+    playing: Various - Hits tou 2000s | -  [tuneIn]
+Building for debugging...
+Build complete! (0.13 sec)
+Sound Bar follows gidHBWaPRWF1q04UsaI: leaving the group (GroupMemberSetGroup with empty group)
+Sound Bar: request accepted
+Building for debugging...
+Build complete! (0.12 sec)
+Bar  [p4300, fw 2025.0]  10.0.0.109
+    id memberId-0025ed1e013e   power active   input player
+    group (none, zone is off)
+    volume 16   transport NO_MEDIA_PRESENT   actions []
+Family Room  [p4300, fw 2025.0]  10.0.0.197
+    id memberId-0025ed1dfe08   power active   input player
+    group gidHBWaPRWF1q04UsaI  (master)
+    volume 15   transport PLAYING   actions [Next,Pause,Play,Stop,X_NUVO_Dislike,X_NUVO_Like]
+    playing: All Mixed Up | 311 - 311 | artist 311  [pandora]
+Gym  [p4300, fw 2025.0]  10.0.0.207
+    id memberId-0025ed1dfe12   power active   input player
+    group (none, zone is off)
+    volume 9   transport NO_MEDIA_PRESENT   actions []
+Sound Bar  [p500, fw 2025.0]  10.0.0.91
+    id memberId-0025ed1e2a55   power standby   input player
+    group (none, zone is off)
+    volume 6   transport PLAYING   actions [Play,Stop]
+    playing: Various - Hits tou 2000s | -  [tuneIn]

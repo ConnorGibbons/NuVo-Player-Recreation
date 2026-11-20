@@ -1,0 +1,143 @@
+== SSDP ==
+  10.0.0.91  http://10.0.0.91:44242/00000000-0000-0000-0000-0025ed1e2a55.xml  [Linux/2.6.37 UPnP/1.0 GUPnP/0.20.8]
+  10.0.0.48  http://10.0.0.48:49152/description.xml  [Linux/2.6.21, UPnP/1.0, Portable SDK for UPnP devices/1.3.1]
+
+== Port 80 on 10.0.0.48 ==
+   <HTTPError 404: 'Site or Page Not Found'>
+  tcp/4747 ConnectionRefusedError(61, 'Connection refused')
+
+== Device http://10.0.0.91:44242/00000000-0000-0000-0000-0025ed1e2a55.xml ==
+  deviceType       urn:schemas-nuvotechnologies-com:device:Zone:1
+  friendlyName     NuVo Zone 00:25:ed:1e:2a:55
+  manufacturer     NuVo
+  modelName        NuVo Player
+  UDN              uuid:00000000-0000-0000-0000-0025ed1e2a55
+  deviceType       urn:schemas-upnp-org:device:MediaRenderer:1
+  friendlyName     NuVo MediaRenderer 00:25:ed:1e:2a:55
+  manufacturer     NuVo
+  modelName        NuVo Player
+  UDN              uuid:00000000-0000-0000-0001-0025ed1e2a55
+  deviceType       urn:schemas-upnp-org:device:MediaServer:1
+  friendlyName     NuVo MediaServer 00:25:ed:1e:2a:55
+  manufacturer     NuVo
+  modelName        NuVo Player
+  UDN              uuid:00000000-0000-0000-0002-0025ed1e2a55
+
+  -- urn:schemas-nuvotechnologies-com:service:Zone:1
+     control=/ZoneService/control event=/ZoneService/event scpd=data/nuvoUpnp/ZoneService.xml
+     Get() -> FirmwareVersion, SystemID, MemberID, Title, Icon, Active, Connecting, MasterGroup, MemberGroup, Model, AudioInput, PowerState
+     GetActive() -> Active
+     GetConnecting() -> Connecting
+     GetUpdateState() -> UpdateState
+     GetFirmwareVersion() -> FirmwareVersion
+     GetMemberID() -> MemberID
+     GetSystemID() -> SystemID
+     GroupCreate(memberIDs) -> groupID
+     GroupDisband(groupID) -> -
+     GroupMemberSetGroup(memberIDs, groupID) -> -
+     SystemCreate(primaryGwMac) -> newSystemID
+     SystemJoin(systemID) -> newSystemID
+     SystemConfigureGWs(gateways) -> -
+     RestoreFactoryDefaults(dummy) -> -
+     UserTap() -> groupID
+     UserDoubleTap() -> groupID
+     [read] Get -> HTTP 200, 794 bytes
+     [read] GetFirmwareVersion -> HTTP 200, 335 bytes
+     [read] GetSystemID -> HTTP 200, 321 bytes
+     [read] GetMemberID -> HTTP 200, 322 bytes
+
+  -- urn:schemas-upnp-org:service:AVTransport:1
+     control=/AVTransport/control event=/AVTransport/event scpd=data/nuvoUpnp/AVTransport.xml
+     SetAVTransportURI(InstanceID, CurrentURI, CurrentURIMetaData) -> -
+     GetMediaInfo(InstanceID) -> NrTracks, MediaDuration, CurrentURI, CurrentURIMetaData, NextURI, NextURIMetaData, PlayMedium, RecordMedium, WriteStatus
+     GetTransportInfo(InstanceID) -> CurrentTransportState, CurrentTransportStatus, CurrentSpeed
+     GetPositionInfo(InstanceID) -> Track, TrackDuration, TrackMetaData, TrackURI, RelTime, AbsTime, RelCount, AbsCount
+     GetDeviceCapabilities(InstanceID) -> PlayMedia, RecMedia, RecQualityModes
+     GetTransportSettings(InstanceID) -> PlayMode, RecQualityMode
+     Stop(InstanceID) -> -
+     Play(InstanceID, Speed) -> -
+     Pause(InstanceID) -> -
+     Seek(InstanceID, Unit, Target) -> -
+     Next(InstanceID) -> -
+     Previous(InstanceID) -> -
+     X_NUVO_Like(InstanceID) -> -
+     X_NUVO_Dislike(InstanceID) -> -
+     SetPlayMode(InstanceID, NewPlayMode) -> -
+     GetCurrentTransportActions(InstanceID) -> Actions
+     X_NUVO_BeginPrevious(InstanceID) -> -
+     X_NUVO_TogglePause(InstanceID) -> -
+     X_NUVO_PlayURI(InstanceID, CurrentURI, CurrentURIMetaData) -> -
+     X_NUVO_PlayContainerURI(InstanceID, CurrentURI, CurrentURIMetaData, TrackURI, TrackURIMetaData, StartingIndex, UpdateID) -> -
+     X_NUVO_PauseOrStop(InstanceID) -> -
+     [read] GetTransportInfo -> HTTP 200, 429 bytes
+     [read] GetMediaInfo -> HTTP 200, 836 bytes
+     [read] GetPositionInfo -> HTTP 200, 523 bytes
+     [read] GetCurrentTransportActions -> HTTP 200, 324 bytes
+
+  -- urn:schemas-upnp-org:service:ConnectionManager:1
+     control=/ConnectionManager-MR/control event=/ConnectionManager-MR/event scpd=data/nuvoUpnp/ConnectionManager.xml
+     ConnectionComplete(ConnectionID) -> -
+     GetCurrentConnectionIDs() -> ConnectionIDs
+     GetCurrentConnectionInfo(ConnectionID) -> RcsID, AVTransportID, ProtocolInfo, PeerConnectionManager, PeerConnectionID, Direction, Status
+     GetProtocolInfo() -> Source, Sink
+     PrepareForConnection(RemoteProtocolInfo, PeerConnectionManager, PeerConnectionID, Direction) -> ConnectionID, AVTransportID, RcsID
+
+  -- urn:schemas-upnp-org:service:RenderingControl:1
+     control=/RenderingControl/control event=/RenderingControl/event scpd=data/nuvoUpnp/RenderingControl.xml
+     GetLoudness(InstanceID, Channel) -> CurrentLoudness
+     GetMute(InstanceID, Channel) -> CurrentMute
+     GetVolume(InstanceID, Channel) -> CurrentVolume
+     GetVolumeDB(InstanceID, Channel) -> CurrentVolume
+     ListPresets(InstanceID) -> CurrentPresetNameList
+     SelectPreset(InstanceID, PresetName) -> -
+     SetLoudness(InstanceID, Channel, DesiredLoudness) -> -
+     SetMute(InstanceID, Channel, DesiredMute) -> -
+     SetVolume(InstanceID, Channel, DesiredVolume) -> -
+     X_NUVO_AdjustVolume(InstanceID, Channel, VolumeAdjustment) -> -
+     SetVolumeDB(InstanceID, Channel, DesiredVolume) -> -
+     [read] GetVolume -> HTTP 200, 309 bytes
+     [read] GetMute -> HTTP 200, 300 bytes
+
+  -- urn:schemas-upnp-org:service:ConnectionManager:1
+     control=/ConnectionManager-MS/control event=/ConnectionManager-MS/event scpd=data/nuvoUpnp/ConnectionManager.xml
+     ConnectionComplete(ConnectionID) -> -
+     GetCurrentConnectionIDs() -> ConnectionIDs
+     GetCurrentConnectionInfo(ConnectionID) -> RcsID, AVTransportID, ProtocolInfo, PeerConnectionManager, PeerConnectionID, Direction, Status
+     GetProtocolInfo() -> Source, Sink
+     PrepareForConnection(RemoteProtocolInfo, PeerConnectionManager, PeerConnectionID, Direction) -> ConnectionID, AVTransportID, RcsID
+
+  -- urn:schemas-upnp-org:service:ContentDirectory:1
+     control=/ContentDirectory/control event=/ContentDirectory/event scpd=data/nuvoUpnp/ContentDirectory.xml
+     Browse(ObjectID, BrowseFlag, Filter, StartingIndex, RequestedCount, SortCriteria) -> Result, NumberReturned, TotalMatches, UpdateID
+     GetSearchCapabilities() -> SearchCaps
+     GetSortCapabilities() -> SortCaps
+     GetSystemUpdateID() -> Id
+     UpdateObject(ObjectID, CurrentTagValue, NewTagValue) -> -
+     X_NUVO_Action(ObjectID) -> Result, Events
+     X_NUVO_Action2(ObjectID, GroupID, MetaData, ParentMetaData, Index, ContextMetaData, ContextParentMetaData, ContextIndex) -> Result, Events
+     X_NUVO_AddChild(ContainerID, MetaData, TargetIndex, TargetMetaData, UpdateID) -> Events
+     X_NUVO_MoveChild(ContainerID, Index, MetaData, TargetIndex, TargetMetaData, UpdateID) -> Events
+     X_NUVO_RemoveChild(ContainerID, Index, MetaData, UpdateID) -> Events
+     X_NUVO_ClearChildren(ContainerID) -> Events
+     X_NUVO_Browse(ObjectID, BrowseFlag, Filter, StartingIndex, RequestedCount, SubscribeQueueID, Arguments) -> Result, NumberReturned, TotalMatches, UpdateID, ContainerProperties
+     X_NUVO_Browse2(ObjectID, BrowseFlag, GroupID, MetaData, ParentMetaData, Index, Filter, StartingIndex, RequestedCount, SubscribeQueueID, Arguments) -> Result, NumberReturned, TotalMatches, UpdateID, ContainerProperties, ResultEncrypted
+     X_NUVO_GetQueryID(ObjectID, Query) -> ResultID
+     X_NUVO_CreateSubscribeQueue() -> QueueID
+     X_NUVO_Subscribe(QueueID, ObjectID, Type) -> -
+     X_NUVO_Unsubscribe(QueueID, ObjectID, Type) -> -
+     X_NUVO_ReadSubscribeQueue(QueueID) -> Events
+     [read] Browse -> HTTP 200, 626 bytes
+
+== Device http://10.0.0.48:49152/description.xml ==
+  deviceType       urn:schemas-nuvotechnologies-com:device:GatewayDevice:1
+  friendlyName     NV-GW100 0025ED9A18CC 2.4G
+  manufacturer     NuVo Technologies LLC.
+  modelDescription NuVo GW100
+  modelName        NuVo GW100
+  modelNumber      NV-GW100
+  UDN              uuid:bc329e00-1dd8-11b2-8601-0025ed9a18cc
+
+  -- urn:schemas-nuvotechnologies-com:service:GatewayConfig:1
+     control=control event=event scpd=WFAWLANConfigSCPD.xml
+     StartWpsPbc() -> -
+     GetSystemId() -> gatewaySystemId

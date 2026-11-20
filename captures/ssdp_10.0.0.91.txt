@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Location: http://10.0.0.91:44242/00000000-0000-0000-0000-0025ed1e2a55.xml
+Ext:
+USN: uuid:00000000-0000-0000-0000-0025ed1e2a55::urn:schemas-nuvotechnologies-com:device:Zone:1
+Server: Linux/2.6.37 UPnP/1.0 GUPnP/0.20.8
+Cache-Control: max-age=100
+ST: urn:schemas-nuvotechnologies-com:device:Zone:1
+Date: Mon, 16 Nov 2026 22:52:49 GMT
+Content-Length: 0
+

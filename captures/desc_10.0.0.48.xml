@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><root xmlns="urn:schemas-upnp-org:device-1-0">
+<specVersion>
+<major>1</major>
+<minor>0</minor>
+</specVersion>
+<device>
+<deviceType>urn:schemas-nuvotechnologies-com:device:GatewayDevice:1</deviceType>
+<friendlyName>NV-GW100 0025ED9A18CC 2.4G</friendlyName>
+<manufacturer>NuVo Technologies LLC.</manufacturer>
+<manufacturerURL>http://nuvotechnologies.com/</manufacturerURL>
+<modelDescription>NuVo GW100</modelDescription>
+<modelName>NuVo GW100</modelName>
+<modelNumber>NV-GW100</modelNumber>
+<modelURL>http://nuvotechnologies.com/</modelURL>
+<serialNumber>REDACTED</serialNumber>
+<UDN>uuid:bc329e00-1dd8-11b2-8601-0025ed9a18cc</UDN>
+<serviceList>
+<service>
+<serviceType>urn:schemas-nuvotechnologies-com:service:GatewayConfig:1</serviceType>
+<serviceId>urn:nuvotechnologies-com:serviceId:GatewayConfig1</serviceId>
+<SCPDURL>WFAWLANConfigSCPD.xml</SCPDURL>
+<controlURL>control</controlURL>
+<eventSubURL>event</eventSubURL>
+</service>
+</serviceList>
+</device>
+<URLBase>http://10.0.0.48:49152/</URLBase>
+</root>
