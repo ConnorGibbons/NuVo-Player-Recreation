@@ -112,7 +112,7 @@ struct ZoneCard: View {
         }
         .padding(14)
         .background {
-            // Same grey as every card, with a faint green wash on a leader,
+            // Same grey as every card, with a faint green wash on a master,
             // so the card keeps the same weight and only its hue shifts.
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.secondary.opacity(0.12))
@@ -167,8 +167,8 @@ struct ZoneCard: View {
         zone.isOn && owner !== zone
     }
 
-    /// A follower gets a "leave" button; a leader or a zone playing alone
-    /// gets a power button. Turning off a leader stops other rooms, so that
+    /// A follower gets a "leave" button; a master or a zone playing alone
+    /// gets a power button. Turning off a master stops other rooms, so that
     /// case asks first.
     @ViewBuilder
     private var offButton: some View {
@@ -241,7 +241,7 @@ struct ZoneCard: View {
 
     /// Only a room that is not playing can join a group. Rooms already in
     /// one are managed with their own buttons: leave on a follower, power on
-    /// the leader.
+    /// the master.
     @ViewBuilder
     private var groupMenu: some View {
         if !zone.isOn && !system.groups.isEmpty {

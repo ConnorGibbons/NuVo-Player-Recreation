@@ -447,7 +447,7 @@ struct NuvoCtl {
             return
         }
         if zone.info.masterGroupID == groupID {
-            print("\(zone.info.title) is the leader of \(groupID): ending the group (GroupDisband)")
+            print("\(zone.info.title) is the master of \(groupID): ending the group (GroupDisband)")
             try await zone.client.disbandGroup(groupID)
         } else {
             print("\(zone.info.title) follows \(groupID): leaving the group (GroupMemberSetGroup with empty group)")

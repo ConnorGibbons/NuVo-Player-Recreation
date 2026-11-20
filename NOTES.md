@@ -3,18 +3,38 @@
 A technical breakdown of how a Nuvo Player Portfolio system is controlled over
 the network, layer by layer, and how NuvoKit implements each layer.
 
-Last reviewed 2026-11-20 against commit `ab069e1`. The earlier version of this
+Last reviewed 2026-11-20 against the code at commit `0a02fb4`. The earlier version of this
 file was a chronological reverse-engineering log; it is still in git history
 (`git show 0a02fb4:NOTES.md`). Every finding from it is folded in below.
 
 Confidence markers used throughout:
 
 - **[seen]** observed on this system (raw evidence is in `captures/`).
-- **[public]** taken from public reverse-engineering write-ups (see Sources)
-  and not independently checked here.
+- **[public]** taken from public reverse-engineering write-ups and not
+  independently checked here. Section 15 says where each one comes from.
 - **[unknown]** not understood yet.
 
 Unmarked statements about NuvoKit describe the code as written.
+
+---
+
+## Contents
+
+- [1. Overview](#1-overview)
+- [2. Identity and addressing](#2-identity-and-addressing)
+- [3. Layer 1: discovery (SSDP)](#3-layer-1-discovery-ssdp)
+- [4. Layer 2: control (SOAP over HTTP)](#4-layer-2-control-soap-over-http)
+- [5. Layer 3: eventing (GENA)](#5-layer-3-eventing-gena)
+- [6. Layer 4: the services and their actions](#6-layer-4-the-services-and-their-actions)
+- [7. Layer 5: data formats](#7-layer-5-data-formats)
+- [8. Behaviour model](#8-behaviour-model)
+- [9. Browsing and playing sources](#9-browsing-and-playing-sources)
+- [10. NuvoKit: how the code maps onto the layers](#10-nuvokit-how-the-code-maps-onto-the-layers)
+- [11. Interfacing with the system](#11-interfacing-with-the-system)
+- [12. Other interfaces on the players (not used by NuvoKit)](#12-other-interfaces-on-the-players-not-used-by-nuvokit)
+- [13. Hazards](#13-hazards)
+- [14. Open questions](#14-open-questions)
+- [15. Sources](#15-sources)
 
 ---
 
@@ -50,23 +70,23 @@ There are three channels, and NuvoKit has one component for each:
 
 Nothing is authenticated. Any device on the LAN can send any of these
 requests, which is why NuvoKit carries a blocklist of destructive actions
-(section 13).
+(section 6).
 
 ### The system as installed [seen]
 
 | Zone | Model | IP | Zone ID | Description port (2026-11-16) |
 |---|---|---|---|---|
-| Bar | p4300 | 10.0.0.109 | memberId-0025ed1e013e | 42431 |
-| Family Room | p4300 | 10.0.0.197 | memberId-0025ed1dfe08 | 43676 |
-| Gym | p4300 | 10.0.0.207 | memberId-0025ed1dfe12 | 37725 |
-| Sound Bar | p500 | 10.0.0.91 | memberId-0025ed1e2a55 | 44242 |
+| Bar | P4300 | 10.0.0.109 | memberId-0025ed1e013e | 42431 |
+| Family Room | P4300 | 10.0.0.197 | memberId-0025ed1dfe08 | 43676 |
+| Gym | P4300 | 10.0.0.207 | memberId-0025ed1dfe12 | 37725 |
+| Sound Bar | P500 | 10.0.0.91 | memberId-0025ed1e2a55 | 44242 |
 
 - All four are on firmware 2025.0 and share SystemID `nuvoCSRJnoZYu81NO7dz`.
   The P4300 had no network presence at all while it was unplugged, and
   rejoined the system by itself once powered.
-- One NV-P4300 chassis is three zones. Each has its own IP, MAC and UPnP
+- One P4300 chassis is three zones. Each has its own IP, MAC and UPnP
   server; nothing on the wire ties them to one box except the model name.
-- 10.0.0.48 is an NV-GW100 wireless gateway, not a player (libupnp 1.3.1,
+- 10.0.0.48 is a GW100 wireless gateway, not a player (libupnp 1.3.1,
   port 49152, one service `GatewayConfig:1` with only `StartWpsPbc` and
   `GetSystemId`). Nothing to control there.
 - IPs and ports above are a snapshot. Ports change on reboot; never hardcode.
@@ -322,8 +342,6 @@ Behaviour **[seen]**:
   `GetMute` returns `0`/`1`. `ZoneClient.bool` accepts both forms.
 - Track metadata is pushed: an AVTransport `LastChange` carries
   `CurrentTrackMetaData`, `X_NUVO_Info` and `X_NUVO_Context`, all DIDL.
-- `Zone.Get` can lag 1-2 s behind a grouping change **[public]**; events are
-  the more current source.
 
 Evented variables per service (from the SCPDs):
 
@@ -333,6 +351,49 @@ Evented variables per service (from the SCPDs):
 | AVTransport | LastChange (TransportState, CurrentTransportActions, AVTransportURI, AVTransportURIMetaData, CurrentTrackURI, CurrentTrackMetaData, X_NUVO_Info, X_NUVO_Context, X_NUVO_Rating, X_NUVO_ExtraInfo, X_NUVO_MatchingAVTransportURIs, ...) |
 | RenderingControl | LastChange (Volume, VolumeDB, Mute, Loudness) |
 | ContentDirectory | SystemUpdateID, ContainerUpdateIDs, TransferIDs (not subscribed) |
+
+### Event names differ from SOAP names
+
+A value read with an action and the same value pushed in an event are named
+differently. Every pair below is in the SCPDs, and every event name has been
+seen in `captures/watch-*.txt` **[seen]**.
+
+| Read with | SOAP result name | Event variable name |
+|---|---|---|
+| `GetTransportInfo` | `CurrentTransportState` | `TransportState` |
+| `GetTransportInfo` | `CurrentTransportStatus` | `TransportStatus` |
+| `GetTransportInfo` | `CurrentSpeed` | `TransportPlaySpeed` |
+| `GetCurrentTransportActions` | `Actions` | `CurrentTransportActions` |
+| `GetPositionInfo` | `Track` | `CurrentTrack` |
+| `GetPositionInfo` | `TrackDuration` | `CurrentTrackDuration` |
+| `GetPositionInfo` | `TrackMetaData` | `CurrentTrackMetaData` |
+| `GetPositionInfo` | `TrackURI` | `CurrentTrackURI` |
+| `GetMediaInfo` | `NrTracks` | `NumberOfTracks` |
+| `GetMediaInfo` | `MediaDuration` | `CurrentMediaDuration` |
+| `GetMediaInfo` | `CurrentURI` | `AVTransportURI` |
+| `GetMediaInfo` | `CurrentURIMetaData` | `AVTransportURIMetaData` |
+| `GetMediaInfo` | `NextURI` | `NextAVTransportURI` |
+| `GetMediaInfo` | `NextURIMetaData` | `NextAVTransportURIMetaData` |
+| `GetMediaInfo` | `PlayMedium` | `PlaybackStorageMedium` |
+| `GetMediaInfo` | `RecordMedium` | `RecordStorageMedium` |
+| `GetMediaInfo` | `WriteStatus` | `RecordMediumWriteStatus` |
+| `GetTransportSettings` | `PlayMode` | `CurrentPlayMode` |
+| `GetTransportSettings` | `RecQualityMode` | `CurrentRecordQualityMode` |
+| `GetDeviceCapabilities` | `PlayMedia` | `PossiblePlaybackStorageMedia` |
+| `GetDeviceCapabilities` | `RecMedia` | `PossibleRecordStorageMedia` |
+| `GetDeviceCapabilities` | `RecQualityModes` | `PossibleRecordQualityModes` |
+| `GetVolume` | `CurrentVolume` | `Volume` |
+| `GetVolumeDB` | `CurrentVolume` | `VolumeDB` |
+| `GetMute` | `CurrentMute` | `Mute` |
+| `GetLoudness` | `CurrentLoudness` | `Loudness` |
+| `Zone.Get` | (same names) | (same names) |
+
+`GetVolume` and `GetVolumeDB` both return a result called `CurrentVolume`;
+only the event names tell them apart.
+
+`GetPositionInfo`'s `RelTime`, `AbsTime`, `RelCount` and `AbsCount` are not
+evented (standard UPnP behaviour, and none appear in the captures). Poll for
+them.
 
 ### In NuvoKit
 
@@ -372,6 +433,11 @@ same four columns:
 - **Used**: whether NuvoKit sends it. Inputs of actions NuvoKit does not send
   are copied from the SCPD and untested.
 
+**Blocked** actions are NuvoKit's blocklist. `NuvoSafety` refuses them in
+`ZoneClient.call`, the only path to the network, so no caller can send one.
+The list is every row marked **blocked** below, plus `StartWpsPbc`, the
+gateway's own action (section 1).
+
 Each service below has a "Values" table explaining the arguments and results
 whose contents are not obvious from the name. Types and allowed values are
 copied from the SCPDs; meanings are marked where they are standard UPnP,
@@ -390,27 +456,14 @@ a separate field. The type says how they combine:
 Unless a row says otherwise, the set comes from the SCPD's own allowed-value
 list.
 
-**SOAP and events use different names for the same thing.** A value read
-with an action and the same value pushed in an event are named differently:
-
-| Read with | SOAP result name | Event variable name |
-|---|---|---|
-| `GetTransportInfo` | `CurrentTransportState` | `TransportState` |
-| `GetTransportInfo` | `CurrentTransportStatus` | `TransportStatus` |
-| `GetCurrentTransportActions` | `Actions` | `CurrentTransportActions` |
-| `GetPositionInfo` | `TrackMetaData` | `CurrentTrackMetaData` |
-| `GetPositionInfo` | `TrackURI` | `CurrentTrackURI` |
-| `GetMediaInfo` | `CurrentURI` | `AVTransportURI` |
-| `GetMediaInfo` | `CurrentURIMetaData` | `AVTransportURIMetaData` |
-| `GetVolume` | `CurrentVolume` | `Volume` |
-| `GetMute` | `CurrentMute` | `Mute` |
-| `Zone.Get` | (same names) | (same names) |
+Events carry many of these values under different names; section 5 has the
+mapping.
 
 ### Zone (`urn:schemas-nuvotechnologies-com:service:Zone:1`)
 
 | Action | Inputs | Notes | Used |
 |---|---|---|---|
-| `Get` | none | -> FirmwareVersion, SystemID, MemberID, Title, Icon, Active, Connecting, MasterGroup, MemberGroup, Model, AudioInput, PowerState | yes |
+| `Get` | none | -> `FirmwareVersion`, `SystemID`, `MemberID`, `Title`, `Icon`, `Active`, `Connecting`, `MasterGroup`, `MemberGroup`, `Model`, `AudioInput`, `PowerState` | yes |
 | `GroupCreate` | `memberIDs` | -> `groupID`. `memberIDs` is a JSON array of zone IDs | yes |
 | `GroupDisband` | `groupID` | | yes |
 | `GroupMemberSetGroup` | `memberIDs`, `groupID` | `memberIDs` is a JSON array; an empty `groupID` means leave | yes |
@@ -447,7 +500,7 @@ Values:
 | ↳ `standby` | value | Low-power idle. Seen only on the P500 when it is in no group. |
 | ↳ `learning` | value | In the SCPD; never observed. Meaning **[unknown]**. |
 | `UpdateState` | string (JSON) | Firmware update status: `{"title":"","version":"","id":"none"}` when there is nothing pending. Other values not observed. |
-| `memberIDs` (argument) | string (JSON) | A JSON array of zone IDs: `["memberId-0025ed1e2a55"]`. Always an array, even for one zone. |
+| `memberIDs` | string (JSON) | A JSON array of zone IDs: `["memberId-0025ed1e2a55"]`. Always an array, even for one zone. |
 | `groupID` | string | Opaque ID the player assigns, `gid` plus 16 characters (`gidO1p1DFsnw9h8p9YL`). The empty string means "no group". |
 
 ### RenderingControl
@@ -511,7 +564,7 @@ Values:
 
 | Name | Type | What it holds |
 |---|---|---|
-| `CurrentTransportState` | string, one of 5 | What the zone's own player is doing right now. On a group follower this is a leftover (section 8). NuvoKit maps it to `TransportState`; any other text becomes `.unknown`. |
+| `CurrentTransportState` | string, one of 5 | What the zone's own player is doing right now. On a group follower this is a leftover (section 8). NuvoKit maps it to the Swift enum `TransportState` (not the event variable of the same name); any other text becomes `.unknown`. |
 | ↳ `NO_MEDIA_PRESENT` | value | Nothing is loaded. What an idle zone reports. NuvoKit: `.noMedia`. |
 | ↳ `TRANSITIONING` | value | A source was accepted and the stream is starting or buffering; a brief stop on the way to `PLAYING`. NuvoKit: `.transitioning`, treated as playing for the play/pause button. |
 | ↳ `PLAYING` | value | Audio is playing. NuvoKit: `.playing`. |
@@ -522,7 +575,7 @@ Values:
 | ↳ `ERROR_OCCURRED` | value | Standard UPnP value for a transport fault. Never observed. |
 | `CurrentSpeed` / `Speed` | string, one of 1 | Playback rate. `Play` must be sent with `Speed=1`. |
 | ↳ `1` | value | Normal speed. The only value the SCPD allows. |
-| `Actions` | string, any of 6 seen (comma-separated) | The transport actions that are valid right now, e.g. `Next,Pause,Play,Stop,X_NUVO_Dislike,X_NUVO_Like`. Empty when idle. Each name is an AVTransport action, so this is directly "which buttons to enable". The SCPD does not enumerate the set; the rows below are every name seen so far. |
+| `Actions` | string, any of 7 (comma-separated) | The transport actions that are valid right now, e.g. `Next,Pause,Play,Stop,X_NUVO_Dislike,X_NUVO_Like`. Empty when idle. Each name is an AVTransport action, so this is directly "which buttons to enable". The SCPD does not enumerate the set; the rows below are every name seen so far, plus `Previous`. |
 | ↳ `Play` | value | `Play` will start or resume playback. |
 | ↳ `Pause` | value | The source can be paused. Seen on Pandora; absent on SiriusXM live radio. |
 | ↳ `Stop` | value | Playback can be stopped. |
@@ -598,8 +651,8 @@ Values (how browsing behaves is covered in section 9):
 | `NumberReturned` | ui4 | How many rows are in this reply. |
 | `TotalMatches` | ui4 | How many rows the folder has in total. More pages exist while `StartingIndex + NumberReturned < TotalMatches`. |
 | `UpdateID` | ui4 | Standard change counter for the folder. `0` in the one saved reply. |
-| `ContainerProperties` (`X_NUVO_Browse` only) | string (DIDL) | A description of the folder itself: canonical ID, title, icon, whether it is searchable. Sent back when playing a row from it (section 9). |
-| `SubscribeQueueID`, `Arguments` (`X_NUVO_Browse` only) | string | Sent empty. Purpose **[unknown]**. |
+| `ContainerProperties` | string (DIDL) | A description of the folder itself: canonical ID, title, icon, whether it is searchable. Sent back when playing a row from it (section 9). |
+| `SubscribeQueueID`, `Arguments` | string | Sent empty. Purpose **[unknown]**. |
 | `ResultEncrypted` (`X_NUVO_Browse2` only) | boolean | **[unknown]** |
 | `Type` (`X_NUVO_Subscribe`, `X_NUVO_Unsubscribe`) | string, one of 2 | What kind of change a subscribe queue should report for an object. Meanings below are read from the names; unconfirmed. |
 | ↳ `rows` | value | Changes to the list of rows inside a folder. |
@@ -732,10 +785,9 @@ There is no power switch. **[seen]**
   MasterGroup with an empty MemberGroup. Only MemberGroup means "on".
 - `PowerState` is not on/off. Idle P4300 zones report `active`; the idle
   P500 reports `standby` and switches to `active` when it joins a group,
-  back to `standby` when it leaves. (`learning` also exists per the code
-  comments; not observed.)
-- `AudioInput` (`player` and `toslink` observed; `rca` per the code
-  comments) tracks what the input jack currently detects, not a setting. The Sound Bar read `toslink`, then
+  back to `standby` when it leaves.
+- `AudioInput` (`player` and `toslink` observed) tracks what the input jack
+  currently detects, not a setting. The Sound Bar read `toslink`, then
   `player` once the optical source went quiet.
 
 | Goal | Request | Sent to |
@@ -746,7 +798,7 @@ There is no power switch. **[seen]**
 | Turn off a master (ends the group for everyone) | `GroupDisband(groupID)` | the master |
 
 Of these, the follower leave is confirmed by capture (`leave-test.txt`): it
-removed only that zone and the leader kept playing. The other three are what
+removed only that zone and the master kept playing. The other three are what
 NuvoKit sends, following the public notes; no capture in this repo records
 each of them individually.
 
@@ -759,8 +811,8 @@ each of them individually.
 - **A follower's own AVTransport is not meaningful.** It has been seen
   reporting `NO_MEDIA_PRESENT`, and on another occasion `PLAYING` with its
   own previous TuneIn station, both while following a Pandora group and
-  after going idle. For any zone that is not a group leader, transport state
-  and metadata are leftovers. Playback truth = MemberGroup + the leader's
+  after going idle. For any zone that is not a group master, transport state
+  and metadata are leftovers. Playback truth = MemberGroup + the master's
   transport.
 - Idle zones drop out of their group after an inactivity timeout
   **[public]**.
@@ -770,7 +822,8 @@ each of them individually.
 - A player accepts a transport command before its reported state changes.
   Starting a stream goes `TRANSITIONING` -> `PLAYING`; stopping goes to
   `STOPPED`.
-- Group changes take a second or two to show up in what zones report.
+- `Zone.Get` can lag 1-2 s behind a grouping change **[public]**; events are
+  the more current source.
 
 ---
 
@@ -872,7 +925,7 @@ something is `GroupCreate` followed by this.
 | `UPnP/DeviceDescription.swift` | 1 | description document, `UPnPService` |
 | `UPnP/SOAP.swift` | 2 | `SOAPClient`, `SOAPFault`, `UPnPError` |
 | `UPnP/Eventing.swift` | 3 | `EventServer`, `GENA`, `GENAParser` |
-| `Nuvo/Models.swift` | 4-5 | constants, `NuvoSafety`, `ZoneInfo`, `TrackInfo`, `MediaEntry`, `BrowsePage`, `DIDL` |
+| `Nuvo/Models.swift` | 4-5 | constants, `NuvoSafety`, `ZoneInfo`, `TransportState`, `TrackInfo`, `LineInput`, `MediaEntry`, `FolderInfo`, `BrowsePage`, `DIDL` |
 | `Nuvo/ZoneClient.swift` | 4 | stateless per-zone API, `NuvoDiscovery` |
 | `Nuvo/Zone.swift` | state | observable state of one zone |
 | `Nuvo/NuvoSystem.swift` | state | the whole installation: discovery, events, groups, commands |
@@ -889,9 +942,7 @@ nothing is cached.
 
 `ZoneClient.call` is the single path from NuvoKit to a control URL. It checks
 `NuvoSafety.isForbidden(action)` first and throws
-`UPnPError.forbiddenAction` for `SystemCreate`, `SystemJoin`,
-`SystemConfigureGWs`, `RestoreFactoryDefaults`, `SelectPreset` and
-`StartWpsPbc`.
+`UPnPError.forbiddenAction` for any blocked action (section 6).
 
 `ZoneClient.page(of:start:count:)` tries `X_NUVO_Browse` and falls back to
 standard `Browse` only on a `SOAPFault`. Timeouts are not retried, because
@@ -900,7 +951,8 @@ both actions hang on the same folders.
 ### Zone: one zone's live state
 
 `@MainActor @Observable`. Holds `info`, `volume`, `isMuted`, `transport`,
-`transportActions`, `nowPlaying`, `isReachable`, `hasLiveUpdates`.
+`transportActions`, `nowPlaying`, `isReachable`, `hasLiveUpdates`,
+`lastError`.
 
 - `refresh()` is the full poll: `Get`, `GetVolume`, `GetMute`,
   `GetTransportInfo`, `GetCurrentTransportActions`, `GetPositionInfo` (and
@@ -931,7 +983,7 @@ it is re-subscribed.
 
 Derived state:
 
-- `groups`: zones that are on, bucketed by MemberGroup ID. The leader (the
+- `groups`: zones that are on, bucketed by MemberGroup ID. The master (the
   member whose MasterGroup ID equals the group ID) comes first, then
   followers by MemberGroup `sortKey`.
 - `idleZones`: zones with an empty MemberGroup ID.
@@ -1087,9 +1139,8 @@ SiriusXM, Library, This iPad, Top 10, Napster.
 
 ## 13. Hazards
 
-- **Never send** `SystemCreate`, `SystemJoin`, `SystemConfigureGWs`,
-  `RestoreFactoryDefaults`, `SelectPreset` or (to the gateway) `StartWpsPbc`.
-  They re-home, reconfigure or wipe a player. NuvoKit refuses them.
+- **Never send** the blocked actions listed in section 6. They re-home,
+  reconfigure or wipe a player. NuvoKit refuses them.
 - `SetAVTransportURI` + `Play` with a WAV URL crashed a zone's UPnP process
   **[public]**. NuvoKit never sends `SetAVTransportURI`.
 - Port-80 `setData` writes change device settings; untested, avoid.
@@ -1202,8 +1253,7 @@ have not simply been tried.
 - **Known:** only the state before and after. Both capture attempts missed
   the change itself: `watch-playback.txt` ended before the zone was grouped,
   and `watch-grouping.txt` finished subscribing after it, so it holds the
-  already-grouped state in its initial dumps and no change events. The public notes say
-  `Zone.Get` lags a grouping change by 1-2 s.
+  already-grouped state in its initial dumps and no change events.
 - **Why it matters:** after any group change NuvoKit waits a fixed 1.5 s and
   re-reads every zone (`settle()`). If the events are prompt and complete,
   that delay is unnecessary.
@@ -1261,6 +1311,23 @@ have not simply been tried.
 - https://github.com/mattmoo/ha-nuvo-player-portfolio (docs/protocol.md)
 - https://github.com/mpdrago/nuvo-zone-keepalive (the line-in play template)
 - https://www.legrand.us/c/discontinued-p3100-professional-series-player/p/nvp3100na
+  (Legrand's P3100 product page)
+
+Where each public claim comes from. Headings are quoted as they appear in
+the source.
+
+| In NOTES | Claim | Source | Where in the source |
+|---|---|---|---|
+| Section 6, RenderingControl | `X_NUVO_AdjustVolume` takes a signed delta | ha-nuvo-player-portfolio, `docs/protocol.md` | "Services" > "RenderingControl:1" |
+| Section 6, ConnectionManager | Mostly unimplemented on the device | ha-nuvo-player-portfolio, `docs/protocol.md` | "Services" > "Faults seen (read-only)": `GetProtocolInfo` and `GetCurrentConnectionIDs` on ConnectionManager-MR answer 401 Invalid Action although the SCPD lists them |
+| Section 8, group request table | Which request turns a zone on, adds, removes or ends a group, and which zone receives it | ha-nuvo-player-portfolio, `docs/protocol.md` | "Exact write sequences (verified)"; "Grouping (verified 2026-09-28, Lounge + Dining Room)" |
+| Section 8, playback | Idle zones drop out of their group after an inactivity timeout | ha-nuvo-player-portfolio, `docs/protocol.md`; nuvo-zone-keepalive, `README.md` | "Idle drop observed" (the link to the inactivity-timeout setting is that author's inference); keepalive "Background" |
+| Section 8, timing | `Zone.Get` lagging behind a grouping change | ha-nuvo-player-portfolio, `docs/protocol.md` | "Get lags behind events after group changes (2026-09-28)" |
+| Section 9, play request | `StartingIndex` is 1 in the line-in template | nuvo-zone-keepalive, `lineIn-body-template.xml` | The whole file is the template |
+| Section 12, port 80 | Login, `getData`/`getRows`/`setData`, the settings it holds | ha-nuvo-player-portfolio, `docs/protocol.md` | "Web UI and nSDK JSON API (port 80)" |
+| Section 13 | `SetAVTransportURI` + `Play` with a WAV URL crashed a zone's UPnP process | ha-nuvo-player-portfolio, `docs/protocol.md` | "HTTP stream playback" > "SetAVTransportURI + Play with WAV: crashed (2026-09-28)" |
+| Section 13 | Bass, treble and balance can be written but do nothing audible | ha-nuvo-player-portfolio, `docs/protocol.md` | "Tone controls via the nSDK API (2026-09-28)" |
+| Section 14, question 12 | Legrand's "Wireless Audio System API" document | Legrand's P3100 product page | Listed under "Supporting Document" as "Wireless Audio System API Request pdf" |
 
 Evidence for **[seen]** items, in `captures/`:
 

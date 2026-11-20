@@ -225,7 +225,7 @@ public final class NuvoSystem {
 
     // MARK: Groups
 
-    /// Active groups. Within each, the leader comes first and followers
+    /// Active groups. Within each, the master comes first and followers
     /// follow in the order they joined.
     public var groups: [ZoneGroup] {
         var order: [String] = []
@@ -239,9 +239,9 @@ public final class NuvoSystem {
         }
         return order.map { groupID in
             let members = buckets[groupID] ?? []
-            let leader = members.first { $0.info.masterGroupID == groupID }
+            let master = members.first { $0.info.masterGroupID == groupID }
             // Leader first, then followers in the order they joined.
-            let followers = members.filter { $0 !== leader }.sorted { first, second in
+            let followers = members.filter { $0 !== master }.sorted { first, second in
                 let firstKey = first.info.memberGroupSortKey
                 let secondKey = second.info.memberGroupSortKey
                 if firstKey != secondKey {
@@ -250,11 +250,11 @@ public final class NuvoSystem {
                 return first.name.localizedCaseInsensitiveCompare(second.name) == .orderedAscending
             }
             var ordered: [Zone] = []
-            if let leader {
-                ordered.append(leader)
+            if let master {
+                ordered.append(master)
             }
             ordered.append(contentsOf: followers)
-            return ZoneGroup(id: groupID, master: leader, members: ordered)
+            return ZoneGroup(id: groupID, master: master, members: ordered)
         }
     }
 
